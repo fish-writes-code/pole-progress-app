@@ -33,9 +33,6 @@ struct MovesView: View {
                 .onDelete(perform: deleteItems)
             }
             .toolbar {
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    EditButton()
-//                }
                 ToolbarItem {
                     Button(action: { addMove(primary_name: "new move") }) {
                         Label("Add Move", systemImage: "plus")
