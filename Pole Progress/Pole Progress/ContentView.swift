@@ -9,13 +9,6 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \PoleMove.primary_name, ascending: true)],
-        animation: .default)
-    private var moves: FetchedResults<PoleMove>
-    
     var body: some View {
         MovesView()
     }
