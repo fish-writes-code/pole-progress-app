@@ -7,65 +7,75 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7284D9272B158F8A00C0C131 /* Pole_ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284D9262B158F8A00C0C131 /* Pole_ProgressApp.swift */; };
-		7284D9292B158F8A00C0C131 /* MoveDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284D9282B158F8A00C0C131 /* MoveDetailsView.swift */; };
-		7284D92B2B158F8A00C0C131 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284D92A2B158F8A00C0C131 /* Move.swift */; };
-		7284D92D2B158F8B00C0C131 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7284D92C2B158F8B00C0C131 /* Assets.xcassets */; };
-		7284D9302B158F8B00C0C131 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7284D92F2B158F8B00C0C131 /* Preview Assets.xcassets */; };
-		7284D93A2B158F8B00C0C131 /* Pole_ProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284D9392B158F8B00C0C131 /* Pole_ProgressTests.swift */; };
-		7284D9442B158F8B00C0C131 /* Pole_ProgressUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284D9432B158F8B00C0C131 /* Pole_ProgressUITests.swift */; };
-		7284D9462B158F8B00C0C131 /* Pole_ProgressUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284D9452B158F8B00C0C131 /* Pole_ProgressUITestsLaunchTests.swift */; };
-		7284D9552B15922C00C0C131 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284D9542B15922C00C0C131 /* Status.swift */; };
+		72382D5E2B16B24C007901D6 /* Pole_ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D5D2B16B24C007901D6 /* Pole_ProgressApp.swift */; };
+		72382D602B16B24C007901D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D5F2B16B24C007901D6 /* ContentView.swift */; };
+		72382D622B16B24D007901D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72382D612B16B24D007901D6 /* Assets.xcassets */; };
+		72382D652B16B24D007901D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72382D642B16B24D007901D6 /* Preview Assets.xcassets */; };
+		72382D672B16B24D007901D6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D662B16B24D007901D6 /* Persistence.swift */; };
+		72382D6A2B16B24D007901D6 /* Pole_Progress.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72382D682B16B24D007901D6 /* Pole_Progress.xcdatamodeld */; };
+		72382D742B16B24D007901D6 /* Pole_ProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D732B16B24D007901D6 /* Pole_ProgressTests.swift */; };
+		72382D7E2B16B24D007901D6 /* Pole_ProgressUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D7D2B16B24D007901D6 /* Pole_ProgressUITests.swift */; };
+		72382D802B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D7F2B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift */; };
+		72382D922B16B54D007901D6 /* StatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D912B16B54D007901D6 /* StatusEnum.swift */; };
+		72382D992B16C151007901D6 /* MovesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D982B16C150007901D6 /* MovesView.swift */; };
+		72D7EBF92B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */; };
+		72E7C9672B16CB4400A44E7E /* PoleMove+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E7C9652B16CB4400A44E7E /* PoleMove+CoreDataClass.swift */; };
+		72E7C9682B16CB4400A44E7E /* PoleMove+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E7C9662B16CB4400A44E7E /* PoleMove+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7284D9362B158F8B00C0C131 /* PBXContainerItemProxy */ = {
+		72382D702B16B24D007901D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7284D91B2B158F8900C0C131 /* Project object */;
+			containerPortal = 72382D522B16B24C007901D6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7284D9222B158F8900C0C131;
+			remoteGlobalIDString = 72382D592B16B24C007901D6;
 			remoteInfo = "Pole Progress";
 		};
-		7284D9402B158F8B00C0C131 /* PBXContainerItemProxy */ = {
+		72382D7A2B16B24D007901D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7284D91B2B158F8900C0C131 /* Project object */;
+			containerPortal = 72382D522B16B24C007901D6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7284D9222B158F8900C0C131;
+			remoteGlobalIDString = 72382D592B16B24C007901D6;
 			remoteInfo = "Pole Progress";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7284D9232B158F8A00C0C131 /* Pole Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pole Progress.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7284D9262B158F8A00C0C131 /* Pole_ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressApp.swift; sourceTree = "<group>"; };
-		7284D9282B158F8A00C0C131 /* MoveDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveDetailsView.swift; sourceTree = "<group>"; };
-		7284D92A2B158F8A00C0C131 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
-		7284D92C2B158F8B00C0C131 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7284D92F2B158F8B00C0C131 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		7284D9352B158F8B00C0C131 /* Pole ProgressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pole ProgressTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7284D9392B158F8B00C0C131 /* Pole_ProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressTests.swift; sourceTree = "<group>"; };
-		7284D93F2B158F8B00C0C131 /* Pole ProgressUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pole ProgressUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7284D9432B158F8B00C0C131 /* Pole_ProgressUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressUITests.swift; sourceTree = "<group>"; };
-		7284D9452B158F8B00C0C131 /* Pole_ProgressUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		7284D9542B15922C00C0C131 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		72382D5A2B16B24C007901D6 /* Pole Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pole Progress.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72382D5D2B16B24C007901D6 /* Pole_ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressApp.swift; sourceTree = "<group>"; };
+		72382D5F2B16B24C007901D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		72382D612B16B24D007901D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		72382D642B16B24D007901D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		72382D662B16B24D007901D6 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		72382D692B16B24D007901D6 /* Pole_Progress.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pole_Progress.xcdatamodel; sourceTree = "<group>"; };
+		72382D6F2B16B24D007901D6 /* Pole ProgressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pole ProgressTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72382D732B16B24D007901D6 /* Pole_ProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressTests.swift; sourceTree = "<group>"; };
+		72382D792B16B24D007901D6 /* Pole ProgressUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pole ProgressUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72382D7D2B16B24D007901D6 /* Pole_ProgressUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressUITests.swift; sourceTree = "<group>"; };
+		72382D7F2B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		72382D912B16B54D007901D6 /* StatusEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEnum.swift; sourceTree = "<group>"; };
+		72382D982B16C150007901D6 /* MovesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovesView.swift; sourceTree = "<group>"; };
+		72D7EBF82B16C8D2006A3E99 /* PoleProgressData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PoleProgressData.xcdatamodel; sourceTree = "<group>"; };
+		72E7C9652B16CB4400A44E7E /* PoleMove+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PoleMove+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		72E7C9662B16CB4400A44E7E /* PoleMove+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PoleMove+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7284D9202B158F8900C0C131 /* Frameworks */ = {
+		72382D572B16B24C007901D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7284D9322B158F8B00C0C131 /* Frameworks */ = {
+		72382D6C2B16B24D007901D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7284D93C2B158F8B00C0C131 /* Frameworks */ = {
+		72382D762B16B24D007901D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -75,82 +85,103 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7284D91A2B158F8900C0C131 = {
+		72382D512B16B24C007901D6 = {
 			isa = PBXGroup;
 			children = (
-				7284D9252B158F8A00C0C131 /* Pole Progress */,
-				7284D9382B158F8B00C0C131 /* Pole ProgressTests */,
-				7284D9422B158F8B00C0C131 /* Pole ProgressUITests */,
-				7284D9242B158F8A00C0C131 /* Products */,
+				72382D5C2B16B24C007901D6 /* Pole Progress */,
+				72382D722B16B24D007901D6 /* Pole ProgressTests */,
+				72382D7C2B16B24D007901D6 /* Pole ProgressUITests */,
+				72382D5B2B16B24C007901D6 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7284D9242B158F8A00C0C131 /* Products */ = {
+		72382D5B2B16B24C007901D6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7284D9232B158F8A00C0C131 /* Pole Progress.app */,
-				7284D9352B158F8B00C0C131 /* Pole ProgressTests.xctest */,
-				7284D93F2B158F8B00C0C131 /* Pole ProgressUITests.xctest */,
+				72382D5A2B16B24C007901D6 /* Pole Progress.app */,
+				72382D6F2B16B24D007901D6 /* Pole ProgressTests.xctest */,
+				72382D792B16B24D007901D6 /* Pole ProgressUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7284D9252B158F8A00C0C131 /* Pole Progress */ = {
+		72382D5C2B16B24C007901D6 /* Pole Progress */ = {
 			isa = PBXGroup;
 			children = (
-				7284D9262B158F8A00C0C131 /* Pole_ProgressApp.swift */,
-				7284D9542B15922C00C0C131 /* Status.swift */,
-				7284D9532B15912800C0C131 /* MoveDetails */,
-				7284D92A2B158F8A00C0C131 /* Move.swift */,
-				7284D92C2B158F8B00C0C131 /* Assets.xcassets */,
-				7284D92E2B158F8B00C0C131 /* Preview Content */,
+				72E7C9652B16CB4400A44E7E /* PoleMove+CoreDataClass.swift */,
+				72E7C9662B16CB4400A44E7E /* PoleMove+CoreDataProperties.swift */,
+				72382D972B16BE4A007901D6 /* Controllers */,
+				72382D8D2B16B270007901D6 /* Models */,
+				72382D8C2B16B267007901D6 /* Views */,
+				72382D5D2B16B24C007901D6 /* Pole_ProgressApp.swift */,
+				72382D682B16B24D007901D6 /* Pole_Progress.xcdatamodeld */,
+				72382D5F2B16B24C007901D6 /* ContentView.swift */,
+				72382D612B16B24D007901D6 /* Assets.xcassets */,
+				72382D662B16B24D007901D6 /* Persistence.swift */,
+				72382D632B16B24D007901D6 /* Preview Content */,
 			);
 			path = "Pole Progress";
 			sourceTree = "<group>";
 		};
-		7284D92E2B158F8B00C0C131 /* Preview Content */ = {
+		72382D632B16B24D007901D6 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				7284D92F2B158F8B00C0C131 /* Preview Assets.xcassets */,
+				72382D642B16B24D007901D6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		7284D9382B158F8B00C0C131 /* Pole ProgressTests */ = {
+		72382D722B16B24D007901D6 /* Pole ProgressTests */ = {
 			isa = PBXGroup;
 			children = (
-				7284D9392B158F8B00C0C131 /* Pole_ProgressTests.swift */,
+				72382D732B16B24D007901D6 /* Pole_ProgressTests.swift */,
 			);
 			path = "Pole ProgressTests";
 			sourceTree = "<group>";
 		};
-		7284D9422B158F8B00C0C131 /* Pole ProgressUITests */ = {
+		72382D7C2B16B24D007901D6 /* Pole ProgressUITests */ = {
 			isa = PBXGroup;
 			children = (
-				7284D9432B158F8B00C0C131 /* Pole_ProgressUITests.swift */,
-				7284D9452B158F8B00C0C131 /* Pole_ProgressUITestsLaunchTests.swift */,
+				72382D7D2B16B24D007901D6 /* Pole_ProgressUITests.swift */,
+				72382D7F2B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift */,
 			);
 			path = "Pole ProgressUITests";
 			sourceTree = "<group>";
 		};
-		7284D9532B15912800C0C131 /* MoveDetails */ = {
+		72382D8C2B16B267007901D6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7284D9282B158F8A00C0C131 /* MoveDetailsView.swift */,
+				72382D982B16C150007901D6 /* MovesView.swift */,
 			);
-			path = MoveDetails;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		72382D8D2B16B270007901D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				72382D912B16B54D007901D6 /* StatusEnum.swift */,
+				72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		72382D972B16BE4A007901D6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7284D9222B158F8900C0C131 /* Pole Progress */ = {
+		72382D592B16B24C007901D6 /* Pole Progress */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7284D9492B158F8B00C0C131 /* Build configuration list for PBXNativeTarget "Pole Progress" */;
+			buildConfigurationList = 72382D832B16B24D007901D6 /* Build configuration list for PBXNativeTarget "Pole Progress" */;
 			buildPhases = (
-				7284D91F2B158F8900C0C131 /* Sources */,
-				7284D9202B158F8900C0C131 /* Frameworks */,
-				7284D9212B158F8900C0C131 /* Resources */,
+				72382D562B16B24C007901D6 /* Sources */,
+				72382D572B16B24C007901D6 /* Frameworks */,
+				72382D582B16B24C007901D6 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -158,69 +189,69 @@
 			);
 			name = "Pole Progress";
 			productName = "Pole Progress";
-			productReference = 7284D9232B158F8A00C0C131 /* Pole Progress.app */;
+			productReference = 72382D5A2B16B24C007901D6 /* Pole Progress.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7284D9342B158F8B00C0C131 /* Pole ProgressTests */ = {
+		72382D6E2B16B24D007901D6 /* Pole ProgressTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7284D94C2B158F8B00C0C131 /* Build configuration list for PBXNativeTarget "Pole ProgressTests" */;
+			buildConfigurationList = 72382D862B16B24D007901D6 /* Build configuration list for PBXNativeTarget "Pole ProgressTests" */;
 			buildPhases = (
-				7284D9312B158F8B00C0C131 /* Sources */,
-				7284D9322B158F8B00C0C131 /* Frameworks */,
-				7284D9332B158F8B00C0C131 /* Resources */,
+				72382D6B2B16B24D007901D6 /* Sources */,
+				72382D6C2B16B24D007901D6 /* Frameworks */,
+				72382D6D2B16B24D007901D6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7284D9372B158F8B00C0C131 /* PBXTargetDependency */,
+				72382D712B16B24D007901D6 /* PBXTargetDependency */,
 			);
 			name = "Pole ProgressTests";
 			productName = "Pole ProgressTests";
-			productReference = 7284D9352B158F8B00C0C131 /* Pole ProgressTests.xctest */;
+			productReference = 72382D6F2B16B24D007901D6 /* Pole ProgressTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		7284D93E2B158F8B00C0C131 /* Pole ProgressUITests */ = {
+		72382D782B16B24D007901D6 /* Pole ProgressUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7284D94F2B158F8B00C0C131 /* Build configuration list for PBXNativeTarget "Pole ProgressUITests" */;
+			buildConfigurationList = 72382D892B16B24D007901D6 /* Build configuration list for PBXNativeTarget "Pole ProgressUITests" */;
 			buildPhases = (
-				7284D93B2B158F8B00C0C131 /* Sources */,
-				7284D93C2B158F8B00C0C131 /* Frameworks */,
-				7284D93D2B158F8B00C0C131 /* Resources */,
+				72382D752B16B24D007901D6 /* Sources */,
+				72382D762B16B24D007901D6 /* Frameworks */,
+				72382D772B16B24D007901D6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7284D9412B158F8B00C0C131 /* PBXTargetDependency */,
+				72382D7B2B16B24D007901D6 /* PBXTargetDependency */,
 			);
 			name = "Pole ProgressUITests";
 			productName = "Pole ProgressUITests";
-			productReference = 7284D93F2B158F8B00C0C131 /* Pole ProgressUITests.xctest */;
+			productReference = 72382D792B16B24D007901D6 /* Pole ProgressUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7284D91B2B158F8900C0C131 /* Project object */ = {
+		72382D522B16B24C007901D6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					7284D9222B158F8900C0C131 = {
+					72382D592B16B24C007901D6 = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
-					7284D9342B158F8B00C0C131 = {
+					72382D6E2B16B24D007901D6 = {
 						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 7284D9222B158F8900C0C131;
+						TestTargetID = 72382D592B16B24C007901D6;
 					};
-					7284D93E2B158F8B00C0C131 = {
+					72382D782B16B24D007901D6 = {
 						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 7284D9222B158F8900C0C131;
+						TestTargetID = 72382D592B16B24C007901D6;
 					};
 				};
 			};
-			buildConfigurationList = 7284D91E2B158F8900C0C131 /* Build configuration list for PBXProject "Pole Progress" */;
+			buildConfigurationList = 72382D552B16B24C007901D6 /* Build configuration list for PBXProject "Pole Progress" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -228,36 +259,36 @@
 				en,
 				Base,
 			);
-			mainGroup = 7284D91A2B158F8900C0C131;
-			productRefGroup = 7284D9242B158F8A00C0C131 /* Products */;
+			mainGroup = 72382D512B16B24C007901D6;
+			productRefGroup = 72382D5B2B16B24C007901D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7284D9222B158F8900C0C131 /* Pole Progress */,
-				7284D9342B158F8B00C0C131 /* Pole ProgressTests */,
-				7284D93E2B158F8B00C0C131 /* Pole ProgressUITests */,
+				72382D592B16B24C007901D6 /* Pole Progress */,
+				72382D6E2B16B24D007901D6 /* Pole ProgressTests */,
+				72382D782B16B24D007901D6 /* Pole ProgressUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7284D9212B158F8900C0C131 /* Resources */ = {
+		72382D582B16B24C007901D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7284D9302B158F8B00C0C131 /* Preview Assets.xcassets in Resources */,
-				7284D92D2B158F8B00C0C131 /* Assets.xcassets in Resources */,
+				72382D652B16B24D007901D6 /* Preview Assets.xcassets in Resources */,
+				72382D622B16B24D007901D6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7284D9332B158F8B00C0C131 /* Resources */ = {
+		72382D6D2B16B24D007901D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7284D93D2B158F8B00C0C131 /* Resources */ = {
+		72382D772B16B24D007901D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -267,51 +298,56 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7284D91F2B158F8900C0C131 /* Sources */ = {
+		72382D562B16B24C007901D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7284D9552B15922C00C0C131 /* Status.swift in Sources */,
-				7284D9292B158F8A00C0C131 /* MoveDetailsView.swift in Sources */,
-				7284D92B2B158F8A00C0C131 /* Move.swift in Sources */,
-				7284D9272B158F8A00C0C131 /* Pole_ProgressApp.swift in Sources */,
+				72382D922B16B54D007901D6 /* StatusEnum.swift in Sources */,
+				72E7C9682B16CB4400A44E7E /* PoleMove+CoreDataProperties.swift in Sources */,
+				72382D672B16B24D007901D6 /* Persistence.swift in Sources */,
+				72E7C9672B16CB4400A44E7E /* PoleMove+CoreDataClass.swift in Sources */,
+				72382D602B16B24C007901D6 /* ContentView.swift in Sources */,
+				72D7EBF92B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld in Sources */,
+				72382D6A2B16B24D007901D6 /* Pole_Progress.xcdatamodeld in Sources */,
+				72382D5E2B16B24C007901D6 /* Pole_ProgressApp.swift in Sources */,
+				72382D992B16C151007901D6 /* MovesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7284D9312B158F8B00C0C131 /* Sources */ = {
+		72382D6B2B16B24D007901D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7284D93A2B158F8B00C0C131 /* Pole_ProgressTests.swift in Sources */,
+				72382D742B16B24D007901D6 /* Pole_ProgressTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7284D93B2B158F8B00C0C131 /* Sources */ = {
+		72382D752B16B24D007901D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7284D9442B158F8B00C0C131 /* Pole_ProgressUITests.swift in Sources */,
-				7284D9462B158F8B00C0C131 /* Pole_ProgressUITestsLaunchTests.swift in Sources */,
+				72382D7E2B16B24D007901D6 /* Pole_ProgressUITests.swift in Sources */,
+				72382D802B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7284D9372B158F8B00C0C131 /* PBXTargetDependency */ = {
+		72382D712B16B24D007901D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7284D9222B158F8900C0C131 /* Pole Progress */;
-			targetProxy = 7284D9362B158F8B00C0C131 /* PBXContainerItemProxy */;
+			target = 72382D592B16B24C007901D6 /* Pole Progress */;
+			targetProxy = 72382D702B16B24D007901D6 /* PBXContainerItemProxy */;
 		};
-		7284D9412B158F8B00C0C131 /* PBXTargetDependency */ = {
+		72382D7B2B16B24D007901D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7284D9222B158F8900C0C131 /* Pole Progress */;
-			targetProxy = 7284D9402B158F8B00C0C131 /* PBXContainerItemProxy */;
+			target = 72382D592B16B24C007901D6 /* Pole Progress */;
+			targetProxy = 72382D7A2B16B24D007901D6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		7284D9472B158F8B00C0C131 /* Debug */ = {
+		72382D812B16B24D007901D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -374,7 +410,7 @@
 			};
 			name = Debug;
 		};
-		7284D9482B158F8B00C0C131 /* Release */ = {
+		72382D822B16B24D007901D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -430,7 +466,7 @@
 			};
 			name = Release;
 		};
-		7284D94A2B158F8B00C0C131 /* Debug */ = {
+		72382D842B16B24D007901D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -458,7 +494,7 @@
 			};
 			name = Debug;
 		};
-		7284D94B2B158F8B00C0C131 /* Release */ = {
+		72382D852B16B24D007901D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -486,7 +522,7 @@
 			};
 			name = Release;
 		};
-		7284D94D2B158F8B00C0C131 /* Debug */ = {
+		72382D872B16B24D007901D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -505,7 +541,7 @@
 			};
 			name = Debug;
 		};
-		7284D94E2B158F8B00C0C131 /* Release */ = {
+		72382D882B16B24D007901D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -524,7 +560,7 @@
 			};
 			name = Release;
 		};
-		7284D9502B158F8B00C0C131 /* Debug */ = {
+		72382D8A2B16B24D007901D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -541,7 +577,7 @@
 			};
 			name = Debug;
 		};
-		7284D9512B158F8B00C0C131 /* Release */ = {
+		72382D8B2B16B24D007901D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -561,43 +597,66 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7284D91E2B158F8900C0C131 /* Build configuration list for PBXProject "Pole Progress" */ = {
+		72382D552B16B24C007901D6 /* Build configuration list for PBXProject "Pole Progress" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7284D9472B158F8B00C0C131 /* Debug */,
-				7284D9482B158F8B00C0C131 /* Release */,
+				72382D812B16B24D007901D6 /* Debug */,
+				72382D822B16B24D007901D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7284D9492B158F8B00C0C131 /* Build configuration list for PBXNativeTarget "Pole Progress" */ = {
+		72382D832B16B24D007901D6 /* Build configuration list for PBXNativeTarget "Pole Progress" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7284D94A2B158F8B00C0C131 /* Debug */,
-				7284D94B2B158F8B00C0C131 /* Release */,
+				72382D842B16B24D007901D6 /* Debug */,
+				72382D852B16B24D007901D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7284D94C2B158F8B00C0C131 /* Build configuration list for PBXNativeTarget "Pole ProgressTests" */ = {
+		72382D862B16B24D007901D6 /* Build configuration list for PBXNativeTarget "Pole ProgressTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7284D94D2B158F8B00C0C131 /* Debug */,
-				7284D94E2B158F8B00C0C131 /* Release */,
+				72382D872B16B24D007901D6 /* Debug */,
+				72382D882B16B24D007901D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7284D94F2B158F8B00C0C131 /* Build configuration list for PBXNativeTarget "Pole ProgressUITests" */ = {
+		72382D892B16B24D007901D6 /* Build configuration list for PBXNativeTarget "Pole ProgressUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7284D9502B158F8B00C0C131 /* Debug */,
-				7284D9512B158F8B00C0C131 /* Release */,
+				72382D8A2B16B24D007901D6 /* Debug */,
+				72382D8B2B16B24D007901D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		72382D682B16B24D007901D6 /* Pole_Progress.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				72382D692B16B24D007901D6 /* Pole_Progress.xcdatamodel */,
+			);
+			currentVersion = 72382D692B16B24D007901D6 /* Pole_Progress.xcdatamodel */;
+			path = Pole_Progress.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				72D7EBF82B16C8D2006A3E99 /* PoleProgressData.xcdatamodel */,
+			);
+			currentVersion = 72D7EBF82B16C8D2006A3E99 /* PoleProgressData.xcdatamodel */;
+			path = PoleProgressData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
-	rootObject = 7284D91B2B158F8900C0C131 /* Project object */;
+	rootObject = 72382D522B16B24C007901D6 /* Project object */;
 }
