@@ -15,7 +15,7 @@ struct MoveListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \PoleMove.primary_name, ascending: true)],
         animation: .default)
     private var moves: FetchedResults<PoleMove>
-    private var detailViewOpen: Bool = false
+    @State private var showConfirmDelete: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -25,6 +25,15 @@ struct MoveListView: View {
                         MoveDetailsView(move: move)
                     } label: {
                         MoveRow(move: move)
+                    }
+                }.onDelete(perform: { indexSet in
+                    showConfirmDelete = true
+                }).confirmationDialog("Do you really want to delete?", isPresented: $showConfirmDelete) {
+                    Button("Delete", role: .destructive) {
+                        showConfirmDelete = false
+                    }
+                    Button("Cancel", role: .cancel) { 
+                        showConfirmDelete = false
                     }
                 }
             }
@@ -76,7 +85,7 @@ struct MoveDetailsView: View {
                     Text("Notes:").font(.caption).bold()
                     Text(move.notes).font(.caption2).fixedSize(horizontal: false, vertical: true)
                 }
-            }.frame(width: UIScreen.main.bounds.width * 0.6).padding(.top)
+            }.frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
             Spacer()
         }.toolbar {
             ToolbarItem {
