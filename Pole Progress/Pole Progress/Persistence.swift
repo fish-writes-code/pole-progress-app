@@ -23,24 +23,25 @@ struct PersistenceController {
         
         let inProgressMove = PoleMove(context: controller.container.viewContext)
         inProgressMove.primary_name = "Reiko"
-        inProgressMove.other_names = "Foot mount,flying K"
+        inProgressMove.other_names = "Foot Mount, Flying K"
         inProgressMove.status = Status.inProgress
         inProgressMove.added_on = Date()
-        inProgressMove.last_trained = formatter.date(from: "3/11/2023")
+        inProgressMove.last_trained = formatter.date(from: "11/3/2023")
         
         let solidMove = PoleMove(context: controller.container.viewContext)
         solidMove.primary_name = "Gemini"
         solidMove.other_names = "Outside Leg Hang"
         solidMove.status = Status.solid
         solidMove.added_on = Date()
-        solidMove.last_trained = formatter.date(from: "11/24/2023")
+        solidMove.last_trained = formatter.date(from: "24/11/2023")
+        solidMove.notes = "For some reason, whenever I take a long break from pole, this one always gets really shaky. It's like I forget how to grip with the knee pit."
         
         let blockedMove = PoleMove(context: controller.container.viewContext)
         blockedMove.primary_name = "Twisted Poisson"
-        blockedMove.other_names = "Poisson,Twisted Fish,Fish"
+        blockedMove.other_names = "Poisson, Twisted Fish, Fish, Reverse Poisson, French Fish, Reverse French Fish"
         blockedMove.status = Status.blocked
         blockedMove.added_on = Date()
-        blockedMove.last_trained = formatter.date(from: "9/2/2022")
+        blockedMove.last_trained = formatter.date(from: "2/9/2022")
         blockedMove.notes = "attempted and failed from extended butterfly"
         
         return controller

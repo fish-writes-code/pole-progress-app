@@ -41,8 +41,14 @@ extension PoleMove : Identifiable {
     }
     
     func getLastTrainedString() -> String {
-        return last_trained != nil ? String(last_trained!.formatted().prefix(while: { (character) -> Bool in
-            return character != ","
-        })): "Never"
+        return last_trained != nil ? last_trained!.dateOnlyFormat : "Never"
+    }
+}
+
+struct PoleMoveList {
+    private (set) var moveList: [PoleMove]
+    
+    mutating func add(_ move: PoleMove) {
+        moveList.append(move)
     }
 }
