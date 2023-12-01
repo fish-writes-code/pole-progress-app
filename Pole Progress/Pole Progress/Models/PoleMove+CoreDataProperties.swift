@@ -10,12 +10,13 @@ import Foundation
 import CoreData
 
 
-extension PoleMove {
+extension PoleMoveEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<PoleMove> {
-        return NSFetchRequest<PoleMove>(entityName: "PoleMove")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<PoleMoveEntity> {
+        return NSFetchRequest<PoleMoveEntity>(entityName: "PoleMoveEntity")
     }
 
+    @NSManaged public var id: UUID
     @NSManaged public var added_on: Date
     @NSManaged public var is_spin_only: Bool
     @NSManaged public var last_trained: Date?
@@ -26,7 +27,7 @@ extension PoleMove {
 
 }
 
-extension PoleMove : Identifiable {
+extension PoleMoveEntity : Identifiable {
     override public func awakeFromInsert() {
             setPrimitiveValue(NSDate(), forKey: "added_on")
         }
@@ -45,10 +46,3 @@ extension PoleMove : Identifiable {
     }
 }
 
-struct PoleMoveList {
-    private (set) var moveList: [PoleMove]
-    
-    mutating func add(_ move: PoleMove) {
-        moveList.append(move)
-    }
-}

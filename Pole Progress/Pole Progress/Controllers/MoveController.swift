@@ -7,7 +7,19 @@
 
 import Foundation
 import CoreData
+import Combine
 
-class MoveController: ObservableObject {
+@MainActor
+final class MoveController: ObservableObject {
+    @Published private var dataController: DataController
     
+    var anyCancellable: AnyCancellable? = nil
+    var moves: [PoleMove] { dataController.moves }
+    
+    init(dataController: DataController) {
+        self.dataController = dataController
+        anyCancellable = dataController.objectWillChange.sink { [weak self] (_) in
+            self?.objectWillChange.send()
+        }
+    }
 }

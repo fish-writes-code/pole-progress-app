@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(PoleMove)
-public class PoleMove: NSManagedObject {
+@objc(PoleMoveEntity)
+public class PoleMoveEntity: NSManagedObject {
 
 }

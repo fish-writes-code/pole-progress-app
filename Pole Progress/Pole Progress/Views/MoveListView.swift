@@ -12,9 +12,9 @@ struct MoveListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \PoleMove.primary_name, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \PoleMoveEntity.primary_name, ascending: true)],
         animation: .default)
-    private var moves: FetchedResults<PoleMove>
+    private var moves: FetchedResults<PoleMoveEntity>
     @State private var showConfirmDelete: Bool = false
     
     var body: some View {
@@ -49,7 +49,7 @@ struct MoveListView: View {
 }
 
 struct MoveRow: View {
-    let move: PoleMove
+    let move: PoleMoveEntity
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
@@ -60,7 +60,7 @@ struct MoveRow: View {
 }
 
 struct MoveDetailsView: View {
-    let move: PoleMove
+    let move: PoleMoveEntity
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 8.0) {

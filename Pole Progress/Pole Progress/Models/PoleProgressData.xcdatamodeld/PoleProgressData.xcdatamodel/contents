@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B81" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="PoleMove" representedClassName="PoleMove" syncable="YES">
+    <entity name="PoleMoveEntity" representedClassName="PoleMoveEntity" syncable="YES">
         <attribute name="added_on" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="is_spin_only" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="last_trained" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="notes" attributeType="String" defaultValueString=""/>
