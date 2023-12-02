@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct PoleMove {
+/** Struct representation of a PoleMoveEntity  */
+struct PoleMove: Identifiable {
     let id: UUID
     let primaryName: String
     var otherNames: String
@@ -17,6 +18,7 @@ struct PoleMove {
     var notes: String
     var addedOn: Date
     
+    /** initializes a PoleMove struct from a PoleMoveEntity */
     init(move: PoleMoveEntity) {
         self.id = move.id
         self.primaryName = move.primary_name
@@ -28,6 +30,7 @@ struct PoleMove {
         self.addedOn = move.added_on
     }
     
+    /** initializes a PoleMove struct using its mutable fields */
     init(primaryName: String, otherNames: String, status: Status, isSpinOnly: Bool, lastTrained: Date?, notes: String) {
         self.id = UUID()
         self.primaryName = primaryName
@@ -39,6 +42,7 @@ struct PoleMove {
         self.addedOn = Date()
     }
     
+    /** Returns the String label of the PoleMove Status enum*/
     func getStatusString() -> String {
         switch status {
         case .toTry: return "To Try"
@@ -48,14 +52,16 @@ struct PoleMove {
         }
     }
     
+    /** Returns the last trained date or "Never" */
     func getLastTrainedString() -> String {
         return self.lastTrained != nil ? lastTrained!.dateOnlyFormat : "Never"
     }
     
-    func getAllMovesArray() -> [String] {
-        var allMoves: [String] = [self.primaryName]
-        allMoves.insert(contentsOf: self.otherNames.components(separatedBy: ",")
+    /** Returns an array of strings containing all this PoleMove's names (primary and other) */
+    func getAllNamesArray() -> [String] {
+        var allNames: [String] = [self.primaryName]
+        allNames.insert(contentsOf: self.otherNames.components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines )}, at: 1)
-        return allMoves
+        return allNames
     }
 }

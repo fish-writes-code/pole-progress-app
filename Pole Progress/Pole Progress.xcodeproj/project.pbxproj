@@ -12,7 +12,6 @@
 		72382D622B16B24D007901D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72382D612B16B24D007901D6 /* Assets.xcassets */; };
 		72382D652B16B24D007901D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72382D642B16B24D007901D6 /* Preview Assets.xcassets */; };
 		72382D672B16B24D007901D6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D662B16B24D007901D6 /* Persistence.swift */; };
-		72382D6A2B16B24D007901D6 /* Pole_Progress.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72382D682B16B24D007901D6 /* Pole_Progress.xcdatamodeld */; };
 		72382D742B16B24D007901D6 /* Pole_ProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D732B16B24D007901D6 /* Pole_ProgressTests.swift */; };
 		72382D7E2B16B24D007901D6 /* Pole_ProgressUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D7D2B16B24D007901D6 /* Pole_ProgressUITests.swift */; };
 		72382D802B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D7F2B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift */; };
@@ -52,7 +51,6 @@
 		72382D612B16B24D007901D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72382D642B16B24D007901D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		72382D662B16B24D007901D6 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		72382D692B16B24D007901D6 /* Pole_Progress.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pole_Progress.xcdatamodel; sourceTree = "<group>"; };
 		72382D6F2B16B24D007901D6 /* Pole ProgressTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pole ProgressTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		72382D732B16B24D007901D6 /* Pole_ProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressTests.swift; sourceTree = "<group>"; };
 		72382D792B16B24D007901D6 /* Pole ProgressUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pole ProgressUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,7 +121,6 @@
 				72382D8D2B16B270007901D6 /* Models */,
 				72382D8C2B16B267007901D6 /* Views */,
 				72382D5D2B16B24C007901D6 /* Pole_ProgressApp.swift */,
-				72382D682B16B24D007901D6 /* Pole_Progress.xcdatamodeld */,
 				72382D5F2B16B24C007901D6 /* ContentView.swift */,
 				72382D612B16B24D007901D6 /* Assets.xcassets */,
 				72382D662B16B24D007901D6 /* Persistence.swift */,
@@ -340,7 +337,6 @@
 				72382D602B16B24C007901D6 /* ContentView.swift in Sources */,
 				72D7EBF92B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld in Sources */,
 				72E7C96C2B18146800A44E7E /* Utils.swift in Sources */,
-				72382D6A2B16B24D007901D6 /* Pole_Progress.xcdatamodeld in Sources */,
 				72382D5E2B16B24C007901D6 /* Pole_ProgressApp.swift in Sources */,
 				72382D992B16C151007901D6 /* MoveListView.swift in Sources */,
 			);
@@ -687,16 +683,6 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		72382D682B16B24D007901D6 /* Pole_Progress.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				72382D692B16B24D007901D6 /* Pole_Progress.xcdatamodel */,
-			);
-			currentVersion = 72382D692B16B24D007901D6 /* Pole_Progress.xcdatamodel */;
-			path = Pole_Progress.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

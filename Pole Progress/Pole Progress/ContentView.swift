@@ -15,5 +15,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    MoveListView(moveController: MoveController(dataController: DataController.preview))
 }

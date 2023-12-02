@@ -9,18 +9,13 @@ import SwiftUI
 import CoreData
 
 struct MoveListView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \PoleMoveEntity.primary_name, ascending: true)],
-        animation: .default)
-    private var moves: FetchedResults<PoleMoveEntity>
+    @StateObject var moveController = MoveController()
     @State private var showConfirmDelete: Bool = false
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(moves) { move in
+                ForEach(moveController.moves) { move in
                     NavigationLink {
                         MoveDetailsView(move: move)
                     } label: {
@@ -49,27 +44,32 @@ struct MoveListView: View {
 }
 
 struct MoveRow: View {
-    let move: PoleMoveEntity
+    let move: PoleMove
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
-            Text(move.primary_name).font(.headline)
+            Text(move.primaryName).font(.headline)
             Text(move.getStatusString()).font(.caption)
         }
     }
 }
 
 struct MoveDetailsView: View {
-    let move: PoleMoveEntity
+    let move: PoleMove
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 8.0) {
-                if !move.other_names.isEmpty {
+                if !move.otherNames.isEmpty {
                     HStack(alignment: .top) {
                         Text("Other Names:").font(.caption).bold().fixedSize()
                         Spacer()
-                        Text(move.other_names).font(.caption).fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                        Text(move.otherNames).font(.caption).fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                     }
+                }
+                HStack() {
+                    Text("Spin Only:").font(.caption).bold()
+                    Spacer()
+                    Text(move.isSpinOnly ? "Yes" : "No").font(.caption)
                 }
                 HStack() {
                     Text("Status:").font(.caption).bold()
@@ -93,11 +93,12 @@ struct MoveDetailsView: View {
                     Text("Edit")
                 }
             }
-        }.navigationTitle(move.primary_name).navigationBarTitleDisplayMode(.inline)
+        }.navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    MoveListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    MoveListView(moveController: MoveController(dataController: DataController.preview))
 }
+
 

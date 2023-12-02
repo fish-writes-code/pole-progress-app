@@ -14,12 +14,22 @@ final class MoveController: ObservableObject {
     @Published private var dataController: DataController
     
     var anyCancellable: AnyCancellable? = nil
-    var moves: [PoleMove] { dataController.moves }
     
-    init(dataController: DataController) {
+    init(dataController: DataController = DataController.shared) {
         self.dataController = dataController
         anyCancellable = dataController.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
         }
+    }
+    
+    /** Array of PoleMove structs */
+    var moves: [PoleMove] { dataController.moves }
+    
+    func fetchPoleMoves() {
+        self.dataController.fetchPoleMoves()
+    }
+    
+    func addPoleMove(move: PoleMove) {
+        dataController.updatePoleMove(moveStruct: move)
     }
 }

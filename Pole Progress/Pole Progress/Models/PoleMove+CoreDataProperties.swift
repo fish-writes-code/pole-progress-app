@@ -31,18 +31,5 @@ extension PoleMoveEntity : Identifiable {
     override public func awakeFromInsert() {
             setPrimitiveValue(NSDate(), forKey: "added_on")
         }
-    
-    func getStatusString() -> String {
-        switch status {
-        case .toTry: return "To Try"
-        case .inProgress: return "In Progress"
-        case .solid: return "Solid"
-        case .blocked: return "Blocked"
-        }
-    }
-    
-    func getLastTrainedString() -> String {
-        return last_trained != nil ? last_trained!.dateOnlyFormat : "Never"
-    }
 }
 
