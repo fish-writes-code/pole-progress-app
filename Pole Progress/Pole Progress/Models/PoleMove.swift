@@ -16,7 +16,7 @@ struct PoleMove: Identifiable {
     var isSpinOnly: Bool
     var lastTrained: Date?
     var notes: String
-    var addedOn: Date
+    let addedOn: Date
     
     /** initializes a PoleMove struct from a PoleMoveEntity */
     init(move: PoleMoveEntity) {
@@ -42,8 +42,8 @@ struct PoleMove: Identifiable {
         self.addedOn = Date()
     }
     
-    /** Returns the String label of the PoleMove Status enum*/
-    func getStatusString() -> String {
+    /** the label of the PoleMove Status enum*/
+    var statusString: String {
         switch status {
         case .toTry: return "To Try"
         case .inProgress: return "In Progress"
@@ -52,13 +52,13 @@ struct PoleMove: Identifiable {
         }
     }
     
-    /** Returns the last trained date or "Never" */
-    func getLastTrainedString() -> String {
+    /** the last trained date or "Never" */
+    var lastTrainedString: String {
         return self.lastTrained != nil ? lastTrained!.dateOnlyFormat : "Never"
     }
     
-    /** Returns an array of strings containing all this PoleMove's names (primary and other) */
-    func getAllNamesArray() -> [String] {
+    /** sn array of strings containing all this PoleMove's names (primary and other) */
+    var allNamesArray: [String] {
         var allNames: [String] = [self.primaryName]
         allNames.insert(contentsOf: self.otherNames.components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines )}, at: 1)

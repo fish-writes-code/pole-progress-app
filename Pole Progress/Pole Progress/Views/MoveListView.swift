@@ -49,7 +49,7 @@ struct MoveRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
             Text(move.primaryName).font(.headline)
-            Text(move.getStatusString()).font(.caption)
+            Text(move.statusString).font(.caption)
         }
     }
 }
@@ -74,12 +74,12 @@ struct MoveDetailsView: View {
                 HStack() {
                     Text("Status:").font(.caption).bold()
                     Spacer()
-                    Text(move.getStatusString()).font(.caption)
+                    Text(move.statusString).font(.caption)
                 }
                 HStack() {
                     Text("Last Trained:").font(.caption).bold()
                     Spacer()
-                    Text(move.getLastTrainedString()).font(.caption)
+                    Text(move.lastTrainedString).font(.caption)
                 }
                 VStack(alignment: .leading, spacing: 4.0) {
                     Text("Notes:").font(.caption).bold()
