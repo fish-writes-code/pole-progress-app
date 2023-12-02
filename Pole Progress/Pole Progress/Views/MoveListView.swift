@@ -9,8 +9,9 @@ import SwiftUI
 import CoreData
 
 struct MoveListView: View {
-    @StateObject var moveController = MoveController()
+    @ObservedObject var moveController = MoveController()
     @State private var showConfirmDelete: Bool = false
+    @State private var showAddMove: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -34,11 +35,14 @@ struct MoveListView: View {
             }
             .toolbar {
                 ToolbarItem {
-                    Button(action: {}) {
+                    Button(action: { showAddMove = true }) {
                         Label("Add Move", systemImage: "plus")
                     }
                 }
             }.navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
+        }
+        .sheet(isPresented: $showAddMove, onDismiss: { showAddMove = false }) {
+            AddMoveView(controller: moveController)
         }
     }
 }
@@ -49,7 +53,7 @@ struct MoveRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
             Text(move.primaryName).font(.headline)
-            Text(move.statusString).font(.caption)
+            Text(move.status.description).font(.caption)
         }
     }
 }
@@ -74,7 +78,7 @@ struct MoveDetailsView: View {
                 HStack() {
                     Text("Status:").font(.caption).bold()
                     Spacer()
-                    Text(move.statusString).font(.caption)
+                    Text(move.status.description).font(.caption)
                 }
                 HStack() {
                     Text("Last Trained:").font(.caption).bold()
@@ -94,6 +98,62 @@ struct MoveDetailsView: View {
                 }
             }
         }.navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct AddMoveView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    @ObservedObject var controller: MoveController
+    
+    @State private var primaryName: String = ""
+    @State private var otherNames: String = ""
+    @State private var isSpinOnly: Bool = false
+    @State private var status: Status = .toTry
+    @State private var previouslyTrained: Bool = false
+    @State private var lastTrainedDate: Date = Date()
+    @State private var notes: String = ""
+    
+    var body: some View {
+        VStack {
+            Text("Add a Pole Move").font(.title)
+            Form {
+                Section(header: Text("Primary Name")) {
+                    TextField("Required", text: $primaryName)
+                }
+                Section(header: Text("Other Names")) {
+                    TextField("Other Names", text: $otherNames)
+                }
+                Section() {
+                    Toggle(isOn: $isSpinOnly, label: {
+                        Text("Spin Only?")
+                    })
+                }
+                Section() {
+                    Picker("Status", selection: $status) {
+                        ForEach(Status.allCases) { status in
+                            Text(status.description)
+                        }
+                    }
+                }
+                Section() {
+                    Toggle(isOn: $previouslyTrained, label: {
+                        Text("Previously Trained?")
+                    })
+                    DatePicker("Last Trained Date", selection: $lastTrainedDate, displayedComponents: [.date]).disabled(!previouslyTrained)
+                }
+                
+                Section(header: Text("Notes")) {
+                    TextEditor(text: $notes)
+                }
+            }
+            Button("Submit") {
+                let newMove = PoleMove(primaryName: primaryName, otherNames: otherNames, status: status, isSpinOnly: isSpinOnly, lastTrained: previouslyTrained ? lastTrainedDate : nil, notes: notes)
+                controller.addOrUpdatePoleMove(move: newMove)
+                dismiss()
+            }
+            Spacer()
+        }.padding()
     }
 }
 

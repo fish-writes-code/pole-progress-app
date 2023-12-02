@@ -8,7 +8,7 @@
 import Foundation
 
 /** Struct representation of a PoleMoveEntity  */
-struct PoleMove: Identifiable {
+struct PoleMove: Identifiable, Hashable {
     let id: UUID
     let primaryName: String
     var otherNames: String
@@ -17,6 +17,18 @@ struct PoleMove: Identifiable {
     var lastTrained: Date?
     var notes: String
     let addedOn: Date
+    
+    init() {
+        self.id = UUID()
+        self.primaryName = ""
+        self.otherNames = ""
+        self.status = .toTry
+        self.isSpinOnly = false
+        self.lastTrained = nil
+        self.notes = ""
+        self.addedOn = Date()
+        
+    }
     
     /** initializes a PoleMove struct from a PoleMoveEntity */
     init(move: PoleMoveEntity) {
@@ -40,16 +52,6 @@ struct PoleMove: Identifiable {
         self.lastTrained = lastTrained
         self.notes = notes
         self.addedOn = Date()
-    }
-    
-    /** the label of the PoleMove Status enum*/
-    var statusString: String {
-        switch status {
-        case .toTry: return "To Try"
-        case .inProgress: return "In Progress"
-        case .solid: return "Solid"
-        case .blocked: return "Blocked"
-        }
     }
     
     /** the last trained date or "Never" */

@@ -29,7 +29,7 @@ final class MoveController: ObservableObject {
         self.dataController.fetchPoleMoves()
     }
     
-    func addPoleMove(move: PoleMove) {
+    func addOrUpdatePoleMove(move: PoleMove) {
         dataController.updatePoleMove(moveStruct: move)
     }
 }
