@@ -9,16 +9,16 @@ import SwiftUI
 import CoreData
 
 struct MoveListView: View {
-    @ObservedObject var moveController = MoveController()
+    @StateObject var moveController = MoveController(move: nil)
     @State private var showConfirmDelete: Bool = false
-    @State private var showAddMove: Bool = false
+    @State private var showMoveEditor: Bool = false
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(moveController.moves) { move in
                     NavigationLink {
-                        MoveDetailsView(move: move)
+                        MoveDetailsView(move: move, showMoveEditor: $showMoveEditor)
                     } label: {
                         MoveRow(move: move)
                     }
@@ -35,20 +35,20 @@ struct MoveListView: View {
             }
             .toolbar {
                 ToolbarItem {
-                    Button(action: { showAddMove = true }) {
+                    Button(action: { showMoveEditor = true }) {
                         Label("Add Move", systemImage: "plus")
                     }
                 }
             }.navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
         }
-        .sheet(isPresented: $showAddMove, onDismiss: { showAddMove = false }) {
-            AddMoveView(controller: moveController)
+        .sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
+            EditMoveView(move: moveController.moveToEdit)
         }
     }
 }
 
 struct MoveRow: View {
-    let move: PoleMove
+    var move: PoleMove
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
@@ -59,7 +59,20 @@ struct MoveRow: View {
 }
 
 struct MoveDetailsView: View {
-    let move: PoleMove
+    @State var move: PoleMove
+    @Binding var showMoveEditor: Bool
+    @ObservedObject var controller: MoveController
+    
+    init(move: PoleMove?, showMoveEditor: Binding<Bool>) {
+        if let move = move {
+            self._move = State<PoleMove>(initialValue: move)
+        } else {
+            self._move = State<PoleMove>(initialValue: PoleMove())
+        }
+        self.controller = MoveController(move: move)
+        self._showMoveEditor = showMoveEditor
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 8.0) {
@@ -89,48 +102,59 @@ struct MoveDetailsView: View {
                     Text("Notes:").font(.caption).bold()
                     Text(move.notes).font(.caption2).fixedSize(horizontal: false, vertical: true)
                 }
-            }.frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
-            Spacer()
-        }.toolbar {
-            ToolbarItem {
-                Button(action: {}) {
-                    Text("Edit")
-                }
+                Spacer()
             }
-        }.navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
+            .frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
+            .toolbar {
+                ToolbarItem {
+                    Button(action: { showMoveEditor = true }) {
+                        Text("Edit")
+                    }
+                }
+            }.navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
+        }
+        .sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
+            EditMoveView(move: move)
+        }
+        
     }
 }
 
-struct AddMoveView: View {
+struct EditMoveView: View {
     @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var controller: MoveController
     
-    @State private var primaryName: String = ""
-    @State private var otherNames: String = ""
-    @State private var isSpinOnly: Bool = false
-    @State private var status: Status = .toTry
+    @State private var isNewMove: Bool = false
     @State private var previouslyTrained: Bool = false
     @State private var lastTrainedDate: Date = Date()
-    @State private var notes: String = ""
+    
+    init(move: PoleMove) {
+        self.controller = MoveController(move: move)
+        if controller.moveToEdit.lastTrained != nil {
+            previouslyTrained = true
+            lastTrainedDate = controller.moveToEdit.lastTrained!
+        }
+    }
+
     
     var body: some View {
         VStack {
             Text("Add a Pole Move").font(.title)
             Form {
                 Section(header: Text("Primary Name")) {
-                    TextField("Required", text: $primaryName)
+                    TextField("Required", text: $controller.moveToEdit.primaryName)
                 }
                 Section(header: Text("Other Names")) {
-                    TextField("Other Names", text: $otherNames)
+                    TextField("Other Names", text: $controller.moveToEdit.otherNames)
                 }
                 Section() {
-                    Toggle(isOn: $isSpinOnly, label: {
+                    Toggle(isOn: $controller.moveToEdit.isSpinOnly, label: {
                         Text("Spin Only?")
                     })
                 }
                 Section() {
-                    Picker("Status", selection: $status) {
+                    Picker("Status", selection: $controller.moveToEdit.status) {
                         ForEach(Status.allCases) { status in
                             Text(status.description)
                         }
@@ -144,12 +168,11 @@ struct AddMoveView: View {
                 }
                 
                 Section(header: Text("Notes")) {
-                    TextEditor(text: $notes)
+                    TextEditor(text: $controller.moveToEdit.notes)
                 }
             }
             Button("Submit") {
-                let newMove = PoleMove(primaryName: primaryName, otherNames: otherNames, status: status, isSpinOnly: isSpinOnly, lastTrained: previouslyTrained ? lastTrainedDate : nil, notes: notes)
-                controller.addOrUpdatePoleMove(move: newMove)
+                controller.addOrUpdatePoleMove()
                 dismiss()
             }
             Spacer()
@@ -158,7 +181,7 @@ struct AddMoveView: View {
 }
 
 #Preview {
-    MoveListView(moveController: MoveController(dataController: DataController.preview))
+    MoveListView(moveController: MoveController(move: nil, dataController: DataController.preview))
 }
 
 

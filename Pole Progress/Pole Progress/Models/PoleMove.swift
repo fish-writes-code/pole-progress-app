@@ -10,7 +10,7 @@ import Foundation
 /** Struct representation of a PoleMoveEntity  */
 struct PoleMove: Identifiable, Hashable {
     let id: UUID
-    let primaryName: String
+    var primaryName: String
     var otherNames: String
     var status: Status
     var isSpinOnly: Bool

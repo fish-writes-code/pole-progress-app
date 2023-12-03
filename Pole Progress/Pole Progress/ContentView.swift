@@ -10,10 +10,10 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        MoveListView()
+        MoveListView(moveController: MoveController(move: nil, dataController: DataController.preview))
     }
 }
 
 #Preview {
-    MoveListView(moveController: MoveController(dataController: DataController.preview))
+    MoveListView(moveController: MoveController(move: nil, dataController: DataController.preview))
 }
