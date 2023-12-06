@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OrderedCollections
 
 struct MoveTransition: Identifiable, Hashable {
     let id: UUID
@@ -40,4 +41,10 @@ struct MoveTransition: Identifiable, Hashable {
     var lastTrainedString: String {
         return self.lastTrained != nil ? lastTrained!.dateOnlyFormat : "Never"
     }
+}
+
+struct PoleCombo: Identifiable, Hashable {
+    let id: UUID
+    var name: String
+    var movesInCombo: OrderedSet<PoleMove>
 }

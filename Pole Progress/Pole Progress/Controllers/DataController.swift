@@ -75,6 +75,10 @@ class DataController: NSObject, ObservableObject {
         movesController.delegate = self
         try? movesController.performFetch()
         _mapPoleMoves(movesController.fetchedObjects)
+        
+        transitionsController.delegate = self
+        try? transitionsController.performFetch()
+        _mapTransitions(transitionsController.fetchedObjects)
     }
     
     func saveData() {
@@ -89,7 +93,7 @@ class DataController: NSObject, ObservableObject {
     
     private func _loadPreviewData() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
+        formatter.dateFormat = "MM/dd/yyyy"
         
         let toTryMove = PoleMoveEntity(context: managedObjectContext)
         toTryMove.id = UUID()
@@ -105,7 +109,7 @@ class DataController: NSObject, ObservableObject {
         inProgressMove.status = Status.inProgress
         inProgressMove.is_spin_only = false
         inProgressMove.added_on = Date()
-        inProgressMove.last_trained = formatter.date(from: "11/3/2023")
+        inProgressMove.last_trained = formatter.date(from: "3/11/2023")
         
         let solidMove = PoleMoveEntity(context: managedObjectContext)
         solidMove.id = UUID()
@@ -114,7 +118,7 @@ class DataController: NSObject, ObservableObject {
         solidMove.status = Status.solid
         solidMove.is_spin_only = false
         solidMove.added_on = Date()
-        solidMove.last_trained = formatter.date(from: "24/11/2023")
+        solidMove.last_trained = formatter.date(from: "11/24/2023")
         solidMove.notes = "For some reason, whenever I take a long break from pole, this one always gets really shaky. It's like I forget how to grip with the knee pit."
         
         let blockedMove = PoleMoveEntity(context: managedObjectContext)
@@ -124,7 +128,7 @@ class DataController: NSObject, ObservableObject {
         blockedMove.status = Status.blocked
         blockedMove.is_spin_only = false
         blockedMove.added_on = Date()
-        blockedMove.last_trained = formatter.date(from: "2/9/2022")
+        blockedMove.last_trained = formatter.date(from: "9/2/2022")
         blockedMove.notes = "attempted and failed from extended butterfly"
         
         let spinOnlyMove = PoleMoveEntity(context: managedObjectContext)
@@ -134,8 +138,32 @@ class DataController: NSObject, ObservableObject {
         spinOnlyMove.is_spin_only = true
         spinOnlyMove.status = Status.solid
         spinOnlyMove.added_on = Date()
-        spinOnlyMove.last_trained = formatter.date(from: "20/7/2023")
+        spinOnlyMove.last_trained = formatter.date(from: "7/20/2023")
         spinOnlyMove.notes = "good conditioning move"
+        
+        let solidTransition = TransitionEntity(context: managedObjectContext)
+        solidTransition.id = UUID()
+        solidTransition.added_on = Date()
+        solidTransition.status = Status.solid
+        solidTransition.from = spinOnlyMove
+        solidTransition.to = solidMove
+        solidTransition.last_trained = formatter.date(from: "6/18/2022")
+        
+        let inProgressTransition = TransitionEntity(context: managedObjectContext)
+        inProgressTransition.id = UUID()
+        inProgressTransition.added_on = formatter.date(from: "12/5/2023")!
+        inProgressTransition.status = Status.inProgress
+        inProgressTransition.from = inProgressMove
+        inProgressTransition.to = solidMove
+        inProgressTransition.last_trained = formatter.date(from: "3/11/2023")
+        
+        let blockedTransition = TransitionEntity(context: managedObjectContext)
+        blockedTransition.id = UUID()
+        blockedTransition.added_on = formatter.date(from: "12/3/2023")!
+        blockedTransition.status = Status.blocked
+        blockedTransition.from = solidMove
+        blockedTransition.to = blockedMove
+        
         
         try? self.managedObjectContext.save()
     }
@@ -145,6 +173,7 @@ extension DataController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         _mapPoleMoves(controller.fetchedObjects as? [PoleMoveEntity])
+        _mapTransitions(controller.fetchedObjects as? [TransitionEntity])
     }
     
     private func fetchFirst<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate?) -> Result<T?, Error> {
@@ -158,6 +187,8 @@ extension DataController: NSFetchedResultsControllerDelegate {
             return .failure(error)
         }
     }
+    
+    // MOVES
     
     /** get all pole moves */
     func fetchPoleMoves(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) {
@@ -176,7 +207,6 @@ extension DataController: NSFetchedResultsControllerDelegate {
         movesController.fetchRequest.predicate = nil
         try? movesController.performFetch()
         _mapPoleMoves(movesController.fetchedObjects)
-        
     }
     
     /** add or update pole move */
@@ -222,7 +252,26 @@ extension DataController: NSFetchedResultsControllerDelegate {
             }
             saveData()
     }
-
+    
+    // TRANSITIONS
+    
+    func fetchTransitions(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) {
+        if let predicate = predicate {
+            transitionsController.fetchRequest.predicate = predicate
+        }
+        if let sortDescriptors = sortDescriptors {
+            transitionsController.fetchRequest.sortDescriptors = sortDescriptors
+        }
+        try? transitionsController.performFetch()
+        _mapTransitions(transitionsController.fetchedObjects)
+    }
+    
+    func resetMoveTransitionFetch() {
+        transitionsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "added_on", ascending: false)]
+        transitionsController.fetchRequest.predicate = nil
+        try? transitionsController.performFetch()
+        _mapTransitions(transitionsController.fetchedObjects)
+    }
     
     /** Utility function that maps fetched PoleMove structs to PoleMoveEntity objects */
     private func _mapPoleMoves(_ newMoves: [PoleMoveEntity]?) {

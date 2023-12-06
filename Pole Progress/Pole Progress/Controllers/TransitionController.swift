@@ -24,4 +24,8 @@ final class TransitionController: ObservableObject {
     
     /** Array of MoveTransition  structs */
     var transitions: [MoveTransition] { dataController.transitions }
+    
+    func fetchTransitions() {
+        self.dataController.fetchTransitions()
+    }
 }
