@@ -18,11 +18,13 @@ struct MoveListView: View {
             List {
                 ForEach(moveController.moves) { move in
                     NavigationLink {
-                        MoveDetailsView(move: move, showMoveEditor: $showMoveEditor)
+                        MoveDetailsView(move: move, controller: moveController)
                     } label: {
                         MoveRow(move: move)
                     }
-                }.onDelete(perform: { indexSet in
+                    
+                }
+                .onDelete(perform: { indexSet in
                     showConfirmDelete = true
                 }).confirmationDialog("Do you really want to delete?", isPresented: $showConfirmDelete) {
                     Button("Delete", role: .destructive) {
@@ -40,9 +42,8 @@ struct MoveListView: View {
                     }
                 }
             }.navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
-        }
-        .sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
-            EditMoveView(move: moveController.moveToEdit)
+        }.sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
+            EditMoveView(move: PoleMove())
         }
     }
 }
@@ -60,18 +61,8 @@ struct MoveRow: View {
 
 struct MoveDetailsView: View {
     @State var move: PoleMove
-    @Binding var showMoveEditor: Bool
+    @State var showEditor: Bool = false
     @ObservedObject var controller: MoveController
-    
-    init(move: PoleMove?, showMoveEditor: Binding<Bool>) {
-        if let move = move {
-            self._move = State<PoleMove>(initialValue: move)
-        } else {
-            self._move = State<PoleMove>(initialValue: PoleMove())
-        }
-        self.controller = MoveController(move: move)
-        self._showMoveEditor = showMoveEditor
-    }
     
     var body: some View {
         NavigationStack {
@@ -107,13 +98,13 @@ struct MoveDetailsView: View {
             .frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
             .toolbar {
                 ToolbarItem {
-                    Button(action: { showMoveEditor = true }) {
+                    Button(action: { showEditor = true }) {
                         Text("Edit")
                     }
                 }
             }.navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
         }
-        .sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
+        .sheet(isPresented: $showEditor, onDismiss: { showEditor = false }) {
             EditMoveView(move: move)
         }
         
@@ -131,9 +122,9 @@ struct EditMoveView: View {
     
     init(move: PoleMove) {
         self.controller = MoveController(move: move)
-        if controller.moveToEdit.lastTrained != nil {
+        if move.lastTrained != nil {
             previouslyTrained = true
-            lastTrainedDate = controller.moveToEdit.lastTrained!
+            lastTrainedDate = move.lastTrained!
         }
     }
 
