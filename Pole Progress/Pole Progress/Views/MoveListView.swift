@@ -12,6 +12,7 @@ struct MoveListView: View {
     @StateObject var moveController = MoveController()
     @State private var moveToAdd = PoleMove()
     @State private var showConfirmDelete: Bool = false
+    @State private var moveToDelete: PoleMove?
     @State private var showMoveEditor: Bool = false
     
     var body: some View {
@@ -22,32 +23,40 @@ struct MoveListView: View {
                         MoveDetailsView(move: move, controller: moveController)
                     } label: {
                         MoveRow(move: move)
-                    }
-                    
+                    } // end NavigationLink
+                    .swipeActions {
+                        Button("Delete") {
+                            showConfirmDelete = true
+                            moveToDelete = move
+                        }.tint(.red) // end delete button
+                    } // end swipeActions
+                } // end moves foreach
+            } // end list
+            .confirmationDialog("Do you really want to delete?", isPresented: $showConfirmDelete) {
+                Button("Delete", role: .destructive) {
+                    showConfirmDelete = false
+                    moveController.deletePoleMove(moveToDelete!)
+                    moveToDelete = nil
                 }
-                .onDelete(perform: { indexSet in
-                    showConfirmDelete = true
-                }).confirmationDialog("Do you really want to delete?", isPresented: $showConfirmDelete) {
-                    Button("Delete", role: .destructive) {
-                        showConfirmDelete = false
-                    }
-                    Button("Cancel", role: .cancel) { 
-                        showConfirmDelete = false
-                    }
+                Button("Cancel", role: .cancel) {
+                    showConfirmDelete = false
+                    moveToDelete = nil
                 }
-            }
+            } // end confirm delete dialog
             .toolbar {
                 ToolbarItem {
                     Button(action: { showMoveEditor = true }) {
                         Label("Add Move", systemImage: "plus")
                     }
                 }
-            }.navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
-        }.sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
+            } // end toolbar
+            .navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
+        } // end NavigationStack
+        .sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
             EditMoveView(move: $moveToAdd, controller: moveController)
         }
-    }
-}
+    } // end body
+} // end MoveListView
 
 struct MoveRow: View {
     var move: PoleMove
@@ -95,7 +104,7 @@ struct MoveDetailsView: View {
                     Text(move.notes).font(.caption2).fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer()
-            }
+            } // end VStack
             .frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
             .toolbar {
                 ToolbarItem {
@@ -103,13 +112,13 @@ struct MoveDetailsView: View {
                         Text("Edit")
                     }
                 }
-            }.navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
-        }
+            } // end toolbar
+            .navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
+        } // end NavigationStack
         .sheet(isPresented: $showEditor, onDismiss: { showEditor = false }) {
             EditMoveView(move: $move, controller: controller)
         }
-        
-    }
+    } // end body
 }
 
 struct EditMoveView: View {
@@ -153,18 +162,18 @@ struct EditMoveView: View {
                             Text(status.description)
                         }
                     }
-                }
+                } // end status section
                 Section() {
                     Toggle(isOn: $previouslyTrained, label: {
                         Text("Previously Trained?")
                     })
                     DatePicker("Last Trained Date", selection: $lastTrainedDate, displayedComponents: [.date]).disabled(!previouslyTrained)
-                }
+                } // end previously trained section
                 
                 Section(header: Text("Notes")) {
                     TextEditor(text: $move.notes)
                 }
-            }
+            } // end form
             Button("Submit") {
                 if !previouslyTrained {
                     move.lastTrained = nil
@@ -173,8 +182,9 @@ struct EditMoveView: View {
                 dismiss()
             }
             Spacer()
-        }.padding()
-    }
+        } // end VStack
+        .padding()
+    } // end body
 }
 
 #Preview {

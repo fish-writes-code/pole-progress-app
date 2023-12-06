@@ -187,14 +187,27 @@ extension DataController: NSFetchedResultsControllerDelegate {
             moveEntity.added_on = moveStruct.addedOn
             
         case .failure(_):
-            print("Couldn't fetch TodoMO to save")
+            print("Couldn't fetch PoleMoveEntity to save")
         }
         
         saveData()
         
     }
-
     
+    func deletePoleMove(move: PoleMove) {
+        let predicate = NSPredicate(format: "id = %@", move.id as CVarArg)
+            let result = fetchFirst(PoleMoveEntity.self, predicate: predicate)
+            switch result {
+            case .success(let managedObject):
+                if let moveEntity = managedObject {
+                    managedObjectContext.delete(moveEntity)
+                }
+            case .failure(_):
+                print("Couldn't fetch PoleMoveEntity to save")
+            }
+            saveData()
+    }
+
     
     /** Utility function that maps fetched PoleMove structs to PoleMoveEntity objects */
     private func _mapPoleMoves(_ newMoves: [PoleMoveEntity]?) {

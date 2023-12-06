@@ -32,4 +32,8 @@ final class MoveController: ObservableObject {
     func addOrUpdatePoleMove(move: PoleMove) {
         dataController.updatePoleMove(moveStruct: move)
     }
+    
+    func deletePoleMove(_ moveToDelete: PoleMove) {
+        dataController.deletePoleMove(move: moveToDelete)
+    }
 }
