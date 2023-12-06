@@ -11,17 +11,11 @@ import Combine
 
 @MainActor
 final class MoveController: ObservableObject {
-    @Published var moveToEdit: PoleMove
     @Published private var dataController: DataController
     
     var anyCancellable: AnyCancellable? = nil
     
-    init(move: PoleMove?, dataController: DataController = DataController.shared) {
-        if let move = move {
-            self.moveToEdit = move
-        } else {
-            self.moveToEdit = PoleMove()
-        }
+    init(dataController: DataController = DataController.shared) {
         self.dataController = dataController
         anyCancellable = dataController.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
@@ -35,7 +29,7 @@ final class MoveController: ObservableObject {
         self.dataController.fetchPoleMoves()
     }
     
-    func addOrUpdatePoleMove() {
-        dataController.updatePoleMove(moveStruct: moveToEdit)
+    func addOrUpdatePoleMove(move: PoleMove) {
+        dataController.updatePoleMove(moveStruct: move)
     }
 }

@@ -9,7 +9,8 @@ import SwiftUI
 import CoreData
 
 struct MoveListView: View {
-    @StateObject var moveController = MoveController(move: nil)
+    @StateObject var moveController = MoveController()
+    @State private var moveToAdd = PoleMove()
     @State private var showConfirmDelete: Bool = false
     @State private var showMoveEditor: Bool = false
     
@@ -43,7 +44,7 @@ struct MoveListView: View {
                 }
             }.navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
         }.sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
-            EditMoveView(move: PoleMove())
+            EditMoveView(move: $moveToAdd, controller: moveController)
         }
     }
 }
@@ -105,7 +106,7 @@ struct MoveDetailsView: View {
             }.navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
         }
         .sheet(isPresented: $showEditor, onDismiss: { showEditor = false }) {
-            EditMoveView(move: move)
+            EditMoveView(move: $move, controller: controller)
         }
         
     }
@@ -116,15 +117,17 @@ struct EditMoveView: View {
     
     @ObservedObject var controller: MoveController
     
+    @Binding var move: PoleMove
     @State private var isNewMove: Bool = false
     @State private var previouslyTrained: Bool = false
     @State private var lastTrainedDate: Date = Date()
     
-    init(move: PoleMove) {
-        self.controller = MoveController(move: move)
-        if move.lastTrained != nil {
-            previouslyTrained = true
-            lastTrainedDate = move.lastTrained!
+    init(move: Binding<PoleMove>, controller: MoveController) {
+        self._move = move
+        self._controller = ObservedObject<MoveController>(initialValue: controller)
+        if let lastTrained = Binding<Date>(move.lastTrained) {
+            self._previouslyTrained = State(initialValue: true)
+            self._lastTrainedDate = State(initialValue: lastTrained.wrappedValue)
         }
     }
 
@@ -134,18 +137,18 @@ struct EditMoveView: View {
             Text("Add a Pole Move").font(.title)
             Form {
                 Section(header: Text("Primary Name")) {
-                    TextField("Required", text: $controller.moveToEdit.primaryName)
+                    TextField("Required", text: $move.primaryName)
                 }
                 Section(header: Text("Other Names")) {
-                    TextField("Other Names", text: $controller.moveToEdit.otherNames)
+                    TextField("Other Names", text: $move.otherNames)
                 }
                 Section() {
-                    Toggle(isOn: $controller.moveToEdit.isSpinOnly, label: {
+                    Toggle(isOn: $move.isSpinOnly, label: {
                         Text("Spin Only?")
                     })
                 }
                 Section() {
-                    Picker("Status", selection: $controller.moveToEdit.status) {
+                    Picker("Status", selection: $move.status) {
                         ForEach(Status.allCases) { status in
                             Text(status.description)
                         }
@@ -159,11 +162,14 @@ struct EditMoveView: View {
                 }
                 
                 Section(header: Text("Notes")) {
-                    TextEditor(text: $controller.moveToEdit.notes)
+                    TextEditor(text: $move.notes)
                 }
             }
             Button("Submit") {
-                controller.addOrUpdatePoleMove()
+                if !previouslyTrained {
+                    move.lastTrained = nil
+                }
+                controller.addOrUpdatePoleMove(move: move)
                 dismiss()
             }
             Spacer()
@@ -172,7 +178,7 @@ struct EditMoveView: View {
 }
 
 #Preview {
-    MoveListView(moveController: MoveController(move: nil, dataController: DataController.preview))
+    MoveListView(moveController: MoveController(dataController: DataController.preview))
 }
 
 
