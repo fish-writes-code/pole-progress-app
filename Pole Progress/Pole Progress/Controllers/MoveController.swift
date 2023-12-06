@@ -36,4 +36,8 @@ final class MoveController: ObservableObject {
     func deletePoleMove(_ moveToDelete: PoleMove) {
         dataController.deletePoleMove(move: moveToDelete)
     }
+    
+    func getMoveById(_ id: UUID) {
+        
+    }
 }

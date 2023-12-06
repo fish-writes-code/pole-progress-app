@@ -9,10 +9,15 @@
         <attribute name="other_names" attributeType="String" defaultValueString=""/>
         <attribute name="primary_name" attributeType="String" minValueString="1" maxValueString="120"/>
         <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="id"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
+        <relationship name="transitions_end" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransitionEntity" inverseName="to" inverseEntity="TransitionEntity"/>
+        <relationship name="transitions_start" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransitionEntity" inverseName="from" inverseEntity="TransitionEntity"/>
+    </entity>
+    <entity name="TransitionEntity" representedClassName="TransitionEntity" syncable="YES">
+        <attribute name="added_on" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="last_trained" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="from" maxCount="1" deletionRule="Nullify" destinationEntity="PoleMoveEntity" inverseName="transitions_start" inverseEntity="PoleMoveEntity"/>
+        <relationship name="to" maxCount="1" deletionRule="Nullify" destinationEntity="PoleMoveEntity" inverseName="transitions_end" inverseEntity="PoleMoveEntity"/>
     </entity>
 </model>
