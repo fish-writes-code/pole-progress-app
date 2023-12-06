@@ -29,7 +29,7 @@ extension PoleMoveEntity {
 
 extension PoleMoveEntity : Identifiable {
     override public func awakeFromInsert() {
-            setPrimitiveValue(NSDate(), forKey: "added_on")
-        }
+        setPrimitiveValue(NSDate(), forKey: "added_on")
+    }
 }
 

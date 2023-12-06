@@ -22,14 +22,20 @@ class DataController: NSObject, ObservableObject {
      key: UUID,
      value: PoleMove (struct) */
     @Published var movesStore: OrderedDictionary<UUID, PoleMove> = [:]
+    @Published var transitionsStore: OrderedDictionary<UUID, MoveTransition> = [:]
     
     /** Array of PoleMove structs */
     var moves: [PoleMove] {
         Array(movesStore.values)
     }
     
+    var transitions: [MoveTransition] {
+        Array(transitionsStore.values)
+    }
+    
     fileprivate var managedObjectContext: NSManagedObjectContext
     private let movesController: NSFetchedResultsController<PoleMoveEntity>
+    private let transitionsController: NSFetchedResultsController<TransitionEntity>
     
     private init(type: DataControllerType) {
         switch type {
@@ -48,6 +54,15 @@ class DataController: NSObject, ObservableObject {
         moveFetchRequest.sortDescriptors = [NSSortDescriptor(key: "primary_name", ascending: true)]
         movesController = NSFetchedResultsController(
             fetchRequest: moveFetchRequest,
+            managedObjectContext: managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+        
+        let transitionFetchRequest: NSFetchRequest<TransitionEntity> = TransitionEntity.fetchRequest()
+        transitionFetchRequest.sortDescriptors = [NSSortDescriptor(key: "added_on", ascending: false)]
+        transitionsController = NSFetchedResultsController(
+            fetchRequest: transitionFetchRequest,
             managedObjectContext: managedObjectContext,
             sectionNameKeyPath: nil,
             cacheName: nil
@@ -213,6 +228,12 @@ extension DataController: NSFetchedResultsControllerDelegate {
     private func _mapPoleMoves(_ newMoves: [PoleMoveEntity]?) {
         if let newMoves = newMoves {
             self.movesStore = OrderedDictionary(uniqueKeysWithValues: newMoves.map({ ($0.id, PoleMove(move: $0)) }) )
+        }
+    }
+    
+    private func _mapTransitions(_ newTransitions: [TransitionEntity]?) {
+        if let newTransitions = newTransitions {
+            self.transitionsStore = OrderedDictionary(uniqueKeysWithValues: newTransitions.map({ ($0.id, MoveTransition(transition: $0))}))
         }
     }
 }

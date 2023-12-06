@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72313EB22B20329B000BD4D0 /* TransitionEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72313EB02B20329B000BD4D0 /* TransitionEntity+CoreDataClass.swift */; };
+		72313EB32B20329B000BD4D0 /* TransitionEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72313EB12B20329B000BD4D0 /* TransitionEntity+CoreDataProperties.swift */; };
+		72313EB52B203308000BD4D0 /* MoveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72313EB42B203308000BD4D0 /* MoveTransition.swift */; };
+		72313EB72B2034B2000BD4D0 /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72313EB62B2034B2000BD4D0 /* TransitionController.swift */; };
 		72382D5E2B16B24C007901D6 /* Pole_ProgressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D5D2B16B24C007901D6 /* Pole_ProgressApp.swift */; };
 		72382D602B16B24C007901D6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D5F2B16B24C007901D6 /* ContentView.swift */; };
 		72382D622B16B24D007901D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72382D612B16B24D007901D6 /* Assets.xcassets */; };
@@ -45,6 +49,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		72313EB02B20329B000BD4D0 /* TransitionEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransitionEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		72313EB12B20329B000BD4D0 /* TransitionEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransitionEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		72313EB42B203308000BD4D0 /* MoveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTransition.swift; sourceTree = "<group>"; };
+		72313EB62B2034B2000BD4D0 /* TransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionController.swift; sourceTree = "<group>"; };
 		72382D5A2B16B24C007901D6 /* Pole Progress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pole Progress.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		72382D5D2B16B24C007901D6 /* Pole_ProgressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressApp.swift; sourceTree = "<group>"; };
 		72382D5F2B16B24C007901D6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -166,11 +174,14 @@
 		72382D8D2B16B270007901D6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				72313EB02B20329B000BD4D0 /* TransitionEntity+CoreDataClass.swift */,
+				72313EB12B20329B000BD4D0 /* TransitionEntity+CoreDataProperties.swift */,
 				72E7C9652B16CB4400A44E7E /* PoleMove+CoreDataClass.swift */,
 				72E7C9662B16CB4400A44E7E /* PoleMove+CoreDataProperties.swift */,
 				72382D912B16B54D007901D6 /* StatusEnum.swift */,
 				72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */,
 				72E2B62C2B1978AE00501351 /* PoleMove.swift */,
+				72313EB42B203308000BD4D0 /* MoveTransition.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -180,6 +191,7 @@
 			children = (
 				72E7C9692B16E5BD00A44E7E /* MoveController.swift */,
 				72E2B62A2B195EE100501351 /* DataController.swift */,
+				72313EB62B2034B2000BD4D0 /* TransitionController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -327,9 +339,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72313EB52B203308000BD4D0 /* MoveTransition.swift in Sources */,
 				72382D922B16B54D007901D6 /* StatusEnum.swift in Sources */,
 				72E2B62B2B195EE100501351 /* DataController.swift in Sources */,
 				72E7C9682B16CB4400A44E7E /* PoleMove+CoreDataProperties.swift in Sources */,
+				72313EB72B2034B2000BD4D0 /* TransitionController.swift in Sources */,
 				72E7C96A2B16E5BD00A44E7E /* MoveController.swift in Sources */,
 				72E2B62D2B1978AE00501351 /* PoleMove.swift in Sources */,
 				72382D672B16B24D007901D6 /* Persistence.swift in Sources */,
@@ -339,6 +353,8 @@
 				72E7C96C2B18146800A44E7E /* Utils.swift in Sources */,
 				72382D5E2B16B24C007901D6 /* Pole_ProgressApp.swift in Sources */,
 				72382D992B16C151007901D6 /* MoveListView.swift in Sources */,
+				72313EB22B20329B000BD4D0 /* TransitionEntity+CoreDataClass.swift in Sources */,
+				72313EB32B20329B000BD4D0 /* TransitionEntity+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

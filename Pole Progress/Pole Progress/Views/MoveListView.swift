@@ -28,6 +28,9 @@ struct MoveListView: View {
                         Button("Delete") {
                             showConfirmDelete = true
                             moveToDelete = move
+                        /* Using .destructive role causes
+                         weird UI glitches, so I'm using
+                         tint instead */
                         }.tint(.red) // end delete button
                     } // end swipeActions
                 } // end moves foreach
