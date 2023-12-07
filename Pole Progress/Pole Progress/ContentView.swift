@@ -9,11 +9,26 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @StateObject var moveController = MoveController()
+    @StateObject var transitionController = TransitionController()
+    
     var body: some View {
-        MoveListView(moveController: MoveController(dataController: DataController.preview))
+        NavigationStack {
+            NavigationLink {
+                MoveListView(moveController: moveController)
+            } label: {
+                Text("Pole Moves")
+            }
+            NavigationLink {
+                TransitionListView(transitionController: transitionController, moveController: moveController)
+            } label: {
+                Text("Pole Transitions")
+            }
+        }
+        
     }
 }
 
 #Preview {
-    MoveListView(moveController: MoveController(dataController: DataController.preview))
+    ContentView(moveController: MoveController(dataController: DataController.preview), transitionController: TransitionController(dataController: DataController.preview))
 }

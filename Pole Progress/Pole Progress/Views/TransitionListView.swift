@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TransitionListView: View {
-    @StateObject var transitionController = TransitionController()
-    @StateObject var moveController = MoveController()
+    @ObservedObject var transitionController = TransitionController()
+    @ObservedObject var moveController = MoveController()
     @State private var transitionToAdd = PoleTransition()
     @State private var showEditor: Bool = false
     
@@ -18,7 +18,7 @@ struct TransitionListView: View {
             List {
                 ForEach(transitionController.transitions) { transition in 
                     NavigationLink {
-                        TransitionDetailView(controller: transitionController, transition: transition)
+                        TransitionDetailView(tController: transitionController, mController: moveController, transition: transition)
                     } label: {
                         TransitionRow(poleTransition: transition)
                     }
@@ -37,7 +37,7 @@ struct TransitionListView: View {
             showEditor = false
             transitionToAdd = PoleTransition()
         }) {
-            TransitionEditView(transition: $transitionToAdd, transitionController: transitionController, moveController: moveController)
+            TransitionEditView(isNewTransition: true, transition: $transitionToAdd, transitionController: transitionController, moveController: moveController)
         } // end sheet
     } // end body
 }
@@ -55,8 +55,10 @@ struct TransitionRow: View {
 }
 
 struct TransitionDetailView: View {
-    @ObservedObject var controller: TransitionController
+    @ObservedObject var tController: TransitionController
+    @ObservedObject var mController: MoveController
     @State var transition: PoleTransition
+    @State var showEditor: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -83,12 +85,15 @@ struct TransitionDetailView: View {
                     }
                 }
                 ToolbarItem {
-                    Button(action: {}) {
+                    Button(action: { showEditor = true }) {
                         Text("Edit")
                     }
                 }
             } // end toolbar
         } // end NavStack
+        .sheet(isPresented: $showEditor, onDismiss: { showEditor = false }) {
+            TransitionEditView(isNewTransition: false, transition: $transition, transitionController: tController, moveController: mController)
+        }
     } // end body
 }
 
@@ -108,7 +113,7 @@ struct TransitionEditView: View {
     private var allowEditing: Bool = true
     private var isNewTransition: Bool = true
     
-    init(transition: Binding<PoleTransition>, transitionController: TransitionController, moveController: MoveController) {
+    init(isNewTransition: Bool, transition: Binding<PoleTransition>, transitionController: TransitionController, moveController: MoveController) {
         self._transition = transition
         self._transitionController = ObservedObject<TransitionController>(initialValue: transitionController)
         self._moveController = ObservedObject<MoveController>(initialValue: moveController)
@@ -116,12 +121,16 @@ struct TransitionEditView: View {
             self._previouslyTrained = State(initialValue: true)
             self._lastTrainedDate = State(initialValue: lastTrained.wrappedValue)
         }
-        if !moveController.moves.isEmpty {
+        if !isNewTransition {
+            self._transitionFrom = State(initialValue: transition.wrappedValue.from)
+            self._transitionTo = State(initialValue: transition.wrappedValue.to)
+        } else if !moveController.moves.isEmpty {
             self._transitionFrom = State(initialValue: moveController.moves.first!)
             self._transitionTo = State(initialValue: moveController.moves.first!)
         } else {
             self.allowEditing = false
         }
+        self.isNewTransition = isNewTransition
     }
     
     var body: some View {
@@ -160,6 +169,8 @@ struct TransitionEditView: View {
                 Button("Submit") {
                     if !previouslyTrained {
                         transition.lastTrained = nil
+                    } else {
+                        transition.lastTrained = lastTrainedDate
                     }
                     transition.to = transitionTo
                     transition.from = transitionFrom

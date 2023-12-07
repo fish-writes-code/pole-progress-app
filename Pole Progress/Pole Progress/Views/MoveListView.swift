@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct MoveListView: View {
-    @StateObject var moveController = MoveController()
+    @ObservedObject var moveController = MoveController()
     @State private var moveToAdd = PoleMove()
     @State private var showConfirmDelete: Bool = false
     @State private var moveToDelete: PoleMove?
@@ -35,7 +35,7 @@ struct MoveListView: View {
                     } // end swipeActions
                 } // end moves foreach
             } // end list
-            .confirmationDialog("Do you really want to delete?", isPresented: $showConfirmDelete) {
+            .alert("Do you really want to delete? This will also delete ALL associated transitions!", isPresented: $showConfirmDelete) {
                 Button("Delete", role: .destructive) {
                     showConfirmDelete = false
                     moveController.deletePoleMove(moveToDelete!)
@@ -185,6 +185,8 @@ struct EditMoveView: View {
             Button("Submit") {
                 if !previouslyTrained {
                     move.lastTrained = nil
+                } else {
+                    move.lastTrained = lastTrainedDate
                 }
                 controller.addOrUpdatePoleMove(move: move)
                 dismiss()
