@@ -202,6 +202,22 @@ extension DataController: NSFetchedResultsControllerDelegate {
         _mapPoleMoves(movesController.fetchedObjects)
     }
     
+    func fetchPoleMoveById(_ id: UUID) -> PoleMoveEntity? {
+        let predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        let result = fetchFirst(PoleMoveEntity.self, predicate: predicate)
+        switch result {
+        case .success(let moveEntity):
+            if moveEntity != nil {
+                return moveEntity
+            } else {
+                return nil
+            }
+        case .failure(_):
+            print("Fetch failed")
+            return nil
+        }
+    }
+    
     func resetPoleMoveFetch() {
         movesController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "primary_name", ascending: true)]
         movesController.fetchRequest.predicate = nil
@@ -271,6 +287,40 @@ extension DataController: NSFetchedResultsControllerDelegate {
         transitionsController.fetchRequest.predicate = nil
         try? transitionsController.performFetch()
         _mapTransitions(transitionsController.fetchedObjects)
+    }
+    
+    func updateTransition(transition: PoleTransition) {
+        let predicate = NSPredicate(format: "id = %@", transition.id as CVarArg)
+        let result = fetchFirst(TransitionEntity.self, predicate: predicate)
+        let transitionEntity: TransitionEntity
+        switch result {
+        case .success(let managedObject):
+            if managedObject != nil {
+                transitionEntity = managedObject!
+            } else {
+                transitionEntity = TransitionEntity(context: managedObjectContext)
+            }
+            
+            transitionEntity.id = transition.id
+            let fromMove = fetchPoleMoveById(transition.from.id)
+            let toMove = fetchPoleMoveById(transition.to.id)
+            
+            if fromMove != nil && toMove != nil {
+                transitionEntity.from = fromMove!
+                transitionEntity.to = toMove!
+            } else {
+                print("Pole moves not found")
+                return
+            }
+            transitionEntity.status = transition.status
+            transitionEntity.last_trained = transition.lastTrained
+            
+        case .failure(_):
+            print("Couldn't fetch TransitionEntity to save")
+        }
+        
+        saveData()
+        
     }
     
     /** Utility function that maps fetched PoleMove structs to PoleMoveEntity objects */

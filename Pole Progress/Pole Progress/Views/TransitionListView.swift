@@ -161,6 +161,9 @@ struct TransitionEditView: View {
                     if !previouslyTrained {
                         transition.lastTrained = nil
                     }
+                    transition.to = transitionTo
+                    transition.from = transitionFrom
+                    transitionController.addOrUpdateTransition(transition: transition)
                     dismiss()
                 } // end submit button
             } // end if-else

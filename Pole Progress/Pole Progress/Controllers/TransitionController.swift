@@ -28,4 +28,8 @@ final class TransitionController: ObservableObject {
     func fetchTransitions() {
         self.dataController.fetchTransitions()
     }
+    
+    func addOrUpdateTransition(transition: PoleTransition) {
+        dataController.updateTransition(transition: transition)
+    }
 }
