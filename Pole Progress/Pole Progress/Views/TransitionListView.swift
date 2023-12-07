@@ -47,9 +47,20 @@ struct TransitionRow: View {
     
     var body: some View {
         HStack {
-            Text(poleTransition.from.primaryName)
-            Image(systemName: "arrow.right")
-            Text(poleTransition.to.primaryName)
+            if poleTransition.name.isEmpty {
+                Text(poleTransition.from.primaryName).font(.headline)
+                Image(systemName: "arrow.right")
+                Text(poleTransition.to.primaryName).font(.headline)
+            } else {
+                VStack(alignment: .leading, spacing: 4.0) {
+                    Text(poleTransition.name).font(.headline)
+                    HStack {
+                        Text(poleTransition.from.primaryName).font(.caption)
+                        Image(systemName: "arrow.right").font(.caption)
+                        Text(poleTransition.to.primaryName).font(.caption)
+                    }
+                }
+            }
         } // end HStack
     } // end body
 }

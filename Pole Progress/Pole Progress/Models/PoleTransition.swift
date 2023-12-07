@@ -10,6 +10,7 @@ import OrderedCollections
 
 struct PoleTransition: Identifiable, Hashable {
     let id: UUID
+    var name: String
     var from: PoleMove
     var to: PoleMove
     var status: Status
@@ -18,14 +19,16 @@ struct PoleTransition: Identifiable, Hashable {
     
     init() {
         self.id = UUID()
+        self.name = ""
         self.from = PoleMove()
         self.to = PoleMove()
         self.status = Status.toTry
         self.addedOn = Date()
     }
     
-    init(from: PoleMove, to: PoleMove, status: Status?, lastTrained: Date?) {
+    init(name: String?, from: PoleMove, to: PoleMove, status: Status?, lastTrained: Date?) {
         self.id = UUID()
+        self.name = name ?? ""
         self.from = from
         self.to = to
         self.status = status ?? Status.toTry
@@ -35,6 +38,7 @@ struct PoleTransition: Identifiable, Hashable {
     
     init(transition: TransitionEntity) {
         self.id = transition.id
+        self.name = transition.name
         self.from = PoleMove(move: transition.from)
         self.to = PoleMove(move: transition.to)
         self.status = transition.status

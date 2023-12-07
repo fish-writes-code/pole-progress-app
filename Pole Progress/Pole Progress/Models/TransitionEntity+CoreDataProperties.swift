@@ -18,6 +18,7 @@ extension TransitionEntity {
 
     
     @NSManaged public var id: UUID
+    @NSManaged public var name: String
     @NSManaged public var added_on: Date
     @NSManaged public var last_trained: Date?
     @NSManaged public var status: Status

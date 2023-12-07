@@ -111,6 +111,14 @@ class DataController: NSObject, ObservableObject {
         inProgressMove.added_on = Date()
         inProgressMove.last_trained = formatter.date(from: "3/11/2023")
         
+        let scorpio = PoleMoveEntity(context: managedObjectContext)
+        scorpio.id = UUID()
+        scorpio.primary_name = "Scorpio"
+        scorpio.status = Status.inProgress
+        scorpio.is_spin_only = false
+        scorpio.added_on = Date()
+        scorpio.last_trained = formatter.date(from: "11/24/2023")
+        
         let solidMove = PoleMoveEntity(context: managedObjectContext)
         solidMove.id = UUID()
         solidMove.primary_name = "Gemini"
@@ -163,6 +171,22 @@ class DataController: NSObject, ObservableObject {
         blockedTransition.status = Status.blocked
         blockedTransition.from = solidMove
         blockedTransition.to = blockedMove
+        
+        let legHangSwitch = TransitionEntity(context: managedObjectContext)
+        legHangSwitch.id = UUID()
+        legHangSwitch.name = "Leg Hang Switch"
+        legHangSwitch.added_on = formatter.date(from: "12/3/2023")!
+        legHangSwitch.status = Status.blocked
+        legHangSwitch.from = solidMove
+        legHangSwitch.to = scorpio
+        
+        let torsoSwitch = TransitionEntity(context: managedObjectContext)
+        torsoSwitch.id = UUID()
+        torsoSwitch.name = "Torso Switch"
+        torsoSwitch.added_on = formatter.date(from: "12/3/2023")!
+        torsoSwitch.status = Status.blocked
+        torsoSwitch.from = solidMove
+        torsoSwitch.to = scorpio
         
         
         try? self.managedObjectContext.save()
