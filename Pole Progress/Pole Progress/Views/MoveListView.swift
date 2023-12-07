@@ -55,8 +55,11 @@ struct MoveListView: View {
             } // end toolbar
             .navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
         } // end NavigationStack
-        .sheet(isPresented: $showMoveEditor, onDismiss: { showMoveEditor = false }) {
-            EditMoveView(move: $moveToAdd, controller: moveController)
+        .sheet(isPresented: $showMoveEditor, onDismiss: {
+            showMoveEditor = false
+            moveToAdd = PoleMove()
+        }) {
+            EditMoveView(move: $moveToAdd, isNewMove: true, controller: moveController)
         }
     } // end body
 } // end MoveListView
@@ -119,7 +122,7 @@ struct MoveDetailsView: View {
             .navigationTitle(move.primaryName).navigationBarTitleDisplayMode(.inline)
         } // end NavigationStack
         .sheet(isPresented: $showEditor, onDismiss: { showEditor = false }) {
-            EditMoveView(move: $move, controller: controller)
+            EditMoveView(move: $move, isNewMove: false, controller: controller)
         }
     } // end body
 }
@@ -130,23 +133,25 @@ struct EditMoveView: View {
     @ObservedObject var controller: MoveController
     
     @Binding var move: PoleMove
-    @State private var isNewMove: Bool = false
     @State private var previouslyTrained: Bool = false
     @State private var lastTrainedDate: Date = Date()
     
-    init(move: Binding<PoleMove>, controller: MoveController) {
+    private var isNewMove: Bool = false
+    
+    init(move: Binding<PoleMove>, isNewMove: Bool, controller: MoveController) {
         self._move = move
         self._controller = ObservedObject<MoveController>(initialValue: controller)
         if let lastTrained = Binding<Date>(move.lastTrained) {
             self._previouslyTrained = State(initialValue: true)
             self._lastTrainedDate = State(initialValue: lastTrained.wrappedValue)
         }
+        self.isNewMove = isNewMove
     }
 
     
     var body: some View {
         VStack {
-            Text("Add a Pole Move").font(.title)
+            Text(isNewMove ? "Add a Pole Move" : "Edit Pole Move").font(.title)
             Form {
                 Section(header: Text("Primary Name")) {
                     TextField("Required", text: $move.primaryName)

@@ -22,14 +22,14 @@ class DataController: NSObject, ObservableObject {
      key: UUID,
      value: PoleMove (struct) */
     @Published var movesStore: OrderedDictionary<UUID, PoleMove> = [:]
-    @Published var transitionsStore: OrderedDictionary<UUID, MoveTransition> = [:]
+    @Published var transitionsStore: OrderedDictionary<UUID, PoleTransition> = [:]
     
     /** Array of PoleMove structs */
     var moves: [PoleMove] {
         Array(movesStore.values)
     }
     
-    var transitions: [MoveTransition] {
+    var transitions: [PoleTransition] {
         Array(transitionsStore.values)
     }
     
@@ -282,7 +282,7 @@ extension DataController: NSFetchedResultsControllerDelegate {
     
     private func _mapTransitions(_ newTransitions: [TransitionEntity]?) {
         if let newTransitions = newTransitions {
-            self.transitionsStore = OrderedDictionary(uniqueKeysWithValues: newTransitions.map({ ($0.id, MoveTransition(transition: $0))}))
+            self.transitionsStore = OrderedDictionary(uniqueKeysWithValues: newTransitions.map({ ($0.id, PoleTransition(transition: $0))}))
         }
     }
 }

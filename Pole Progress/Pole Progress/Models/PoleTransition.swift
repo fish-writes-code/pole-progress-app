@@ -8,10 +8,11 @@
 import Foundation
 import OrderedCollections
 
-struct MoveTransition: Identifiable, Hashable {
+struct PoleTransition: Identifiable, Hashable {
     let id: UUID
-    let from: PoleMove
-    let to: PoleMove
+    var from: PoleMove
+    var to: PoleMove
+    var status: Status
     var lastTrained: Date?
     let addedOn: Date
     
@@ -19,13 +20,15 @@ struct MoveTransition: Identifiable, Hashable {
         self.id = UUID()
         self.from = PoleMove()
         self.to = PoleMove()
+        self.status = Status.toTry
         self.addedOn = Date()
     }
     
-    init(from: PoleMove, to: PoleMove, lastTrained: Date?) {
+    init(from: PoleMove, to: PoleMove, status: Status?, lastTrained: Date?) {
         self.id = UUID()
         self.from = from
         self.to = to
+        self.status = status ?? Status.toTry
         self.lastTrained = lastTrained
         self.addedOn = Date()
     }
@@ -34,6 +37,7 @@ struct MoveTransition: Identifiable, Hashable {
         self.id = transition.id
         self.from = PoleMove(move: transition.from)
         self.to = PoleMove(move: transition.to)
+        self.status = transition.status
         self.lastTrained = transition.last_trained
         self.addedOn = transition.added_on
     }
