@@ -58,7 +58,7 @@ struct TransitionRow: View {
                         Text(poleTransition.from.primaryName).font(.caption)
                         Image(systemName: "arrow.right").font(.caption)
                         Text(poleTransition.to.primaryName).font(.caption)
-                    }
+                    } // end hstack
                 }
             }
         } // end HStack
