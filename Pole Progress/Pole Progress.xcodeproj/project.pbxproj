@@ -22,6 +22,7 @@
 		72382D802B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D7F2B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift */; };
 		72382D922B16B54D007901D6 /* StatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D912B16B54D007901D6 /* StatusEnum.swift */; };
 		72382D992B16C151007901D6 /* MoveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D982B16C150007901D6 /* MoveListView.swift */; };
+		726BA7172B22B112004C40B6 /* ComboController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726BA7162B22B112004C40B6 /* ComboController.swift */; };
 		72D7EBF92B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */; };
 		72D89DE22B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D89DE02B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift */; };
 		72D89DE32B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D89DE12B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift */; };
@@ -71,6 +72,7 @@
 		72382D7F2B16B24D007901D6 /* Pole_ProgressUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pole_ProgressUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		72382D912B16B54D007901D6 /* StatusEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEnum.swift; sourceTree = "<group>"; };
 		72382D982B16C150007901D6 /* MoveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveListView.swift; sourceTree = "<group>"; };
+		726BA7162B22B112004C40B6 /* ComboController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboController.swift; sourceTree = "<group>"; };
 		72D7EBF82B16C8D2006A3E99 /* PoleProgressData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PoleProgressData.xcdatamodel; sourceTree = "<group>"; };
 		72D89DE02B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComboEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		72D89DE12B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComboEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				72E7C9692B16E5BD00A44E7E /* MoveController.swift */,
 				72E2B62A2B195EE100501351 /* DataController.swift */,
 				72313EB62B2034B2000BD4D0 /* TransitionController.swift */,
+				726BA7162B22B112004C40B6 /* ComboController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				72382D602B16B24C007901D6 /* ContentView.swift in Sources */,
 				72D7EBF92B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld in Sources */,
 				72E7C96C2B18146800A44E7E /* Utils.swift in Sources */,
+				726BA7172B22B112004C40B6 /* ComboController.swift in Sources */,
 				72382D5E2B16B24C007901D6 /* Pole_ProgressApp.swift in Sources */,
 				72382D992B16C151007901D6 /* MoveListView.swift in Sources */,
 				72313EB22B20329B000BD4D0 /* TransitionEntity+CoreDataClass.swift in Sources */,

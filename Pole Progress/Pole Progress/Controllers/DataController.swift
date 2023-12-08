@@ -23,6 +23,7 @@ class DataController: NSObject, ObservableObject {
      value: PoleMove (struct) */
     @Published var movesStore: OrderedDictionary<UUID, PoleMove> = [:]
     @Published var transitionsStore: OrderedDictionary<UUID, PoleTransition> = [:]
+    @Published var combosStore: OrderedDictionary<UUID, PoleCombo> = [:]
     
     /** Array of PoleMove structs */
     var moves: [PoleMove] {
@@ -33,9 +34,14 @@ class DataController: NSObject, ObservableObject {
         Array(transitionsStore.values)
     }
     
+    var combos: [PoleCombo] {
+        Array(combosStore.values)
+    }
+    
     fileprivate var managedObjectContext: NSManagedObjectContext
     private let movesController: NSFetchedResultsController<PoleMoveEntity>
     private let transitionsController: NSFetchedResultsController<TransitionEntity>
+    private let combosController: NSFetchedResultsController<ComboEntity>
     
     private init(type: DataControllerType) {
         switch type {
@@ -68,6 +74,15 @@ class DataController: NSObject, ObservableObject {
             cacheName: nil
         )
         
+        let comboFetchRequest: NSFetchRequest<ComboEntity> = ComboEntity.fetchRequest()
+        comboFetchRequest.sortDescriptors = [NSSortDescriptor(key: "added_on", ascending: false)]
+        combosController = NSFetchedResultsController(
+            fetchRequest: comboFetchRequest,
+            managedObjectContext: managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+        
         super.init()
         
         if type == .preview { _loadPreviewData() }
@@ -79,6 +94,10 @@ class DataController: NSObject, ObservableObject {
         transitionsController.delegate = self
         try? transitionsController.performFetch()
         _mapTransitions(transitionsController.fetchedObjects)
+        
+        combosController.delegate = self
+        try? combosController.performFetch()
+        _mapCombos(combosController.fetchedObjects)
     }
     
     func saveData() {
@@ -95,23 +114,23 @@ class DataController: NSObject, ObservableObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yyyy"
         
-        let toTryMove = PoleMoveEntity(context: managedObjectContext)
-        toTryMove.id = UUID()
-        toTryMove.primary_name = "Forearm Ayesha"
-        toTryMove.is_spin_only = false
-        toTryMove.spotter_required = true
-        toTryMove.status = Status.toTry
-        toTryMove.added_on = Date()
+        let ayesha = PoleMoveEntity(context: managedObjectContext)
+        ayesha.id = UUID()
+        ayesha.primary_name = "Forearm Ayesha"
+        ayesha.is_spin_only = false
+        ayesha.spotter_required = true
+        ayesha.status = Status.toTry
+        ayesha.added_on = Date()
         
-        let inProgressMove = PoleMoveEntity(context: managedObjectContext)
-        inProgressMove.id = UUID()
-        inProgressMove.primary_name = "Reiko"
-        inProgressMove.other_names = "Foot Mount, Flying K"
-        inProgressMove.status = Status.inProgress
-        inProgressMove.is_spin_only = false
-        inProgressMove.spotter_required = false
-        inProgressMove.added_on = Date()
-        inProgressMove.last_trained = formatter.date(from: "3/11/2023")
+        let reiko = PoleMoveEntity(context: managedObjectContext)
+        reiko.id = UUID()
+        reiko.primary_name = "Reiko"
+        reiko.other_names = "Foot Mount, Flying K"
+        reiko.status = Status.inProgress
+        reiko.is_spin_only = false
+        reiko.spotter_required = false
+        reiko.added_on = Date()
+        reiko.last_trained = formatter.date(from: "3/11/2023")
         
         let scorpio = PoleMoveEntity(context: managedObjectContext)
         scorpio.id = UUID()
@@ -122,77 +141,110 @@ class DataController: NSObject, ObservableObject {
         scorpio.added_on = Date()
         scorpio.last_trained = formatter.date(from: "11/24/2023")
         
-        let solidMove = PoleMoveEntity(context: managedObjectContext)
-        solidMove.id = UUID()
-        solidMove.primary_name = "Gemini"
-        solidMove.other_names = "Outside Leg Hang"
-        solidMove.status = Status.solid
-        solidMove.is_spin_only = false
-        solidMove.spotter_required = false
-        solidMove.added_on = Date()
-        solidMove.last_trained = formatter.date(from: "11/24/2023")
-        solidMove.notes = "For some reason, whenever I take a long break from pole, this one always gets really shaky. It's like I forget how to grip with the knee pit."
+        let gemini = PoleMoveEntity(context: managedObjectContext)
+        gemini.id = UUID()
+        gemini.primary_name = "Gemini"
+        gemini.other_names = "Outside Leg Hang"
+        gemini.status = Status.solid
+        gemini.is_spin_only = false
+        gemini.spotter_required = false
+        gemini.added_on = Date()
+        gemini.last_trained = formatter.date(from: "11/24/2023")
+        gemini.notes = "For some reason, whenever I take a long break from pole, this one always gets really shaky. It's like I forget how to grip with the knee pit."
         
-        let blockedMove = PoleMoveEntity(context: managedObjectContext)
-        blockedMove.id = UUID()
-        blockedMove.primary_name = "Twisted Poisson"
-        blockedMove.other_names = "Poisson, Twisted Fish, Fish, Reverse Poisson, French Fish, Reverse French Fish"
-        blockedMove.status = Status.blocked
-        blockedMove.is_spin_only = false
-        blockedMove.spotter_required = true
-        blockedMove.added_on = Date()
-        blockedMove.last_trained = formatter.date(from: "9/2/2022")
-        blockedMove.notes = "attempted and failed from extended butterfly"
+        let jasmine = PoleMoveEntity(context: managedObjectContext)
+        jasmine.id = UUID()
+        jasmine.primary_name = "Jasmine"
+        jasmine.status = Status.solid
+        jasmine.is_spin_only = false
+        jasmine.spotter_required = false
+        jasmine.added_on = Date()
+        jasmine.last_trained = formatter.date(from: "12/4/2023")
         
-        let spinOnlyMove = PoleMoveEntity(context: managedObjectContext)
-        spinOnlyMove.id = UUID()
-        spinOnlyMove.primary_name = "Pencil Spin"
-        spinOnlyMove.other_names = ""
-        spinOnlyMove.is_spin_only = true
-        spinOnlyMove.spotter_required = false
-        spinOnlyMove.status = Status.solid
-        spinOnlyMove.added_on = Date()
-        spinOnlyMove.last_trained = formatter.date(from: "7/20/2023")
-        spinOnlyMove.notes = "good conditioning move"
+        let poisson = PoleMoveEntity(context: managedObjectContext)
+        poisson.id = UUID()
+        poisson.primary_name = "Twisted Poisson"
+        poisson.other_names = "Poisson, Twisted Fish, Fish, Reverse Poisson, French Fish, Reverse French Fish"
+        poisson.status = Status.blocked
+        poisson.is_spin_only = false
+        poisson.spotter_required = true
+        poisson.added_on = Date()
+        poisson.last_trained = formatter.date(from: "9/2/2022")
+        poisson.notes = "attempted and failed from extended butterfly"
+        
+        let pencil = PoleMoveEntity(context: managedObjectContext)
+        pencil.id = UUID()
+        pencil.primary_name = "Pencil Spin"
+        pencil.other_names = ""
+        pencil.is_spin_only = true
+        pencil.spotter_required = false
+        pencil.status = Status.solid
+        pencil.added_on = Date()
+        pencil.last_trained = formatter.date(from: "7/20/2023")
+        pencil.notes = "good conditioning move"
+        
+        let cupid = PoleMoveEntity(context: managedObjectContext)
+        cupid.id = UUID()
+        cupid.primary_name = "Cupid"
+        cupid.status = Status.inProgress
+        cupid.is_spin_only = false
+        cupid.spotter_required = false
+        cupid.added_on = Date()
+        cupid.last_trained = formatter.date(from: "7/21/2023")
         
         let solidTransition = TransitionEntity(context: managedObjectContext)
         solidTransition.id = UUID()
         solidTransition.added_on = Date()
         solidTransition.status = Status.solid
-        solidTransition.from = spinOnlyMove
-        solidTransition.to = solidMove
+        solidTransition.from = pencil
+        solidTransition.to = gemini
         solidTransition.last_trained = formatter.date(from: "6/18/2022")
         
         let inProgressTransition = TransitionEntity(context: managedObjectContext)
         inProgressTransition.id = UUID()
         inProgressTransition.added_on = formatter.date(from: "12/5/2023")!
         inProgressTransition.status = Status.inProgress
-        inProgressTransition.from = inProgressMove
-        inProgressTransition.to = solidMove
+        inProgressTransition.from = reiko
+        inProgressTransition.to = cupid
         inProgressTransition.last_trained = formatter.date(from: "3/11/2023")
         
         let blockedTransition = TransitionEntity(context: managedObjectContext)
         blockedTransition.id = UUID()
         blockedTransition.added_on = formatter.date(from: "12/3/2023")!
         blockedTransition.status = Status.blocked
-        blockedTransition.from = solidMove
-        blockedTransition.to = blockedMove
+        blockedTransition.from = gemini
+        blockedTransition.to = poisson
+        
+        let cupidtoJasmine = TransitionEntity(context: managedObjectContext)
+        cupidtoJasmine.id = UUID()
+        cupidtoJasmine.added_on = Date()
+        cupidtoJasmine.status = Status.inProgress
+        cupidtoJasmine.from = cupid
+        cupidtoJasmine.to = jasmine
+        cupidtoJasmine.last_trained = formatter.date(from: "7/21/2023")
         
         let legHangSwitch = TransitionEntity(context: managedObjectContext)
         legHangSwitch.id = UUID()
         legHangSwitch.name = "Leg Hang Switch"
         legHangSwitch.added_on = formatter.date(from: "12/3/2023")!
-        legHangSwitch.status = Status.blocked
-        legHangSwitch.from = solidMove
+        legHangSwitch.status = Status.inProgress
+        legHangSwitch.from = gemini
         legHangSwitch.to = scorpio
         
         let torsoSwitch = TransitionEntity(context: managedObjectContext)
         torsoSwitch.id = UUID()
         torsoSwitch.name = "Torso Switch"
         torsoSwitch.added_on = formatter.date(from: "12/3/2023")!
-        torsoSwitch.status = Status.blocked
-        torsoSwitch.from = solidMove
+        torsoSwitch.status = Status.inProgress
+        torsoSwitch.from = gemini
         torsoSwitch.to = scorpio
+        
+        let cupidCombo = ComboEntity(context: managedObjectContext)
+        cupidCombo.id = UUID()
+        cupidCombo.name = "Cupid to Jasmine"
+        cupidCombo.moves = NSOrderedSet(array: [reiko, cupid, jasmine])
+        cupidCombo.transitions = NSOrderedSet(array: [inProgressTransition, cupidtoJasmine])
+        cupidCombo.last_trained = formatter.date(from: "7/21/2023")
         
         
         try? self.managedObjectContext.save()
@@ -204,6 +256,7 @@ extension DataController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         _mapPoleMoves(controller.fetchedObjects as? [PoleMoveEntity])
         _mapTransitions(controller.fetchedObjects as? [TransitionEntity])
+        _mapCombos(controller.fetchedObjects as? [ComboEntity])
     }
     
     private func fetchFirst<T: NSManagedObject>(_ objectType: T.Type, predicate: NSPredicate?) -> Result<T?, Error> {
@@ -367,6 +420,26 @@ extension DataController: NSFetchedResultsControllerDelegate {
             saveData()
     }
     
+    // COMBOS
+    
+    func fetchCombos(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) {
+        if let predicate = predicate {
+            combosController.fetchRequest.predicate = predicate
+        }
+        if let sortDescriptors = sortDescriptors {
+            combosController.fetchRequest.sortDescriptors = sortDescriptors
+        }
+        try? combosController.performFetch()
+        _mapCombos(combosController.fetchedObjects)
+    }
+    
+    func resetComboFetch() {
+        combosController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "added_on", ascending: false)]
+        combosController.fetchRequest.predicate = nil
+        try? combosController.performFetch()
+        _mapCombos(combosController.fetchedObjects)
+    }
+    
     /** Utility function that maps fetched PoleMove structs to PoleMoveEntity objects */
     private func _mapPoleMoves(_ newMoves: [PoleMoveEntity]?) {
         if let newMoves = newMoves {
@@ -377,6 +450,12 @@ extension DataController: NSFetchedResultsControllerDelegate {
     private func _mapTransitions(_ newTransitions: [TransitionEntity]?) {
         if let newTransitions = newTransitions {
             self.transitionsStore = OrderedDictionary(uniqueKeysWithValues: newTransitions.map({ ($0.id, PoleTransition(transition: $0))}))
+        }
+    }
+    
+    private func _mapCombos(_ newCombos: [ComboEntity]?) {
+        if let newCombos = newCombos {
+            self.combosStore = OrderedDictionary(uniqueKeysWithValues: newCombos.map({ ($0.id, PoleCombo(comboEntity: $0)) }))
         }
     }
 }
