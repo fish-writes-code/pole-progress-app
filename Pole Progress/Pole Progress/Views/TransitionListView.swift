@@ -73,6 +73,13 @@ struct TransitionDetailView: View {
     
     var body: some View {
         NavigationStack {
+            if !transition.name.isEmpty {
+                HStack {
+                    Text(transition.from.primaryName).font(.subheadline)
+                    Image(systemName: "arrow.right").font(.subheadline)
+                    Text(transition.to.primaryName).font(.subheadline)
+                }
+            }
             VStack(alignment: .leading, spacing: 8.0) {
                 HStack {
                     Text("Status:").font(.caption).bold()
@@ -89,10 +96,14 @@ struct TransitionDetailView: View {
             .frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    HStack {
-                        Text(transition.from.primaryName).font(.headline)
-                        Image(systemName: "arrow.right").font(.headline)
-                        Text(transition.to.primaryName).font(.headline)
+                    if transition.name.isEmpty {
+                        HStack {
+                            Text(transition.from.primaryName).font(.headline)
+                            Image(systemName: "arrow.right").font(.headline)
+                            Text(transition.to.primaryName).font(.headline)
+                        }
+                    } else {
+                        Text(transition.name).font(.headline)
                     }
                 }
                 ToolbarItem {
