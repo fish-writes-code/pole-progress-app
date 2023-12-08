@@ -50,9 +50,3 @@ struct PoleTransition: Identifiable, Hashable {
         return self.lastTrained != nil ? lastTrained!.dateOnlyFormat : "Never"
     }
 }
-
-struct PoleCombo: Identifiable, Hashable {
-    let id: UUID
-    var name: String
-    var movesInCombo: OrderedSet<PoleMove>
-}

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B81" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ComboEntity" representedClassName="ComboEntity" syncable="YES">
+        <attribute name="added_on" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="last_trained" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="moves" toMany="YES" minCount="2" deletionRule="Nullify" ordered="YES" destinationEntity="PoleMoveEntity" inverseName="combos" inverseEntity="PoleMoveEntity"/>
+        <relationship name="transitions" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="TransitionEntity" inverseName="combos" inverseEntity="TransitionEntity"/>
+    </entity>
     <entity name="PoleMoveEntity" representedClassName="PoleMoveEntity" syncable="YES">
         <attribute name="added_on" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
@@ -10,6 +19,7 @@
         <attribute name="primary_name" attributeType="String" minValueString="1" maxValueString="120"/>
         <attribute name="spotter_required" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="combos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ComboEntity" inverseName="moves" inverseEntity="ComboEntity"/>
         <relationship name="transitions_end" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransitionEntity" inverseName="to" inverseEntity="TransitionEntity"/>
         <relationship name="transitions_start" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransitionEntity" inverseName="from" inverseEntity="TransitionEntity"/>
     </entity>
@@ -19,6 +29,7 @@
         <attribute name="last_trained" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="combos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ComboEntity" inverseName="transitions" inverseEntity="ComboEntity"/>
         <relationship name="from" maxCount="1" deletionRule="Nullify" destinationEntity="PoleMoveEntity" inverseName="transitions_start" inverseEntity="PoleMoveEntity"/>
         <relationship name="to" maxCount="1" deletionRule="Nullify" destinationEntity="PoleMoveEntity" inverseName="transitions_end" inverseEntity="PoleMoveEntity"/>
     </entity>
