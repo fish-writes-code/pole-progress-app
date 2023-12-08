@@ -29,6 +29,21 @@ final class TransitionController: ObservableObject {
         self.dataController.fetchTransitions()
     }
     
+    func getTransitionsWithStartingMove(startingMove: PoleMove) -> [PoleTransition] {
+        let result = transitions.filter { $0.from == startingMove }
+        return result
+    }
+    
+    func getTransitionsWithEndingMove(endingMove: PoleMove) -> [PoleTransition] {
+        let result = transitions.filter { $0.to == endingMove }
+        return result
+    }
+    
+    func getTransitionsByName(name: String) -> [PoleTransition] {
+        let result = transitions.filter { $0.name == name }
+        return result
+    }
+    
     func addOrUpdateTransition(transition: PoleTransition) {
         dataController.updateTransition(transition: transition)
     }

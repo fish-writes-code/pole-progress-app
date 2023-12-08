@@ -174,6 +174,9 @@ struct TransitionEditView: View {
                             }
                         }.disabled(!isNewTransition)
                     } // end moves section
+                    Section(header: Text("Name")) {
+                        TextField("Optional", text: $transition.name)
+                    }
                     Section() {
                         Picker("Status", selection: $transition.status) {
                             ForEach(Status.allCases) { status in
