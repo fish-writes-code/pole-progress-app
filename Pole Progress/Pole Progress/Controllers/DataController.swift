@@ -353,6 +353,20 @@ extension DataController: NSFetchedResultsControllerDelegate {
         
     }
     
+    func deletePoleTransition(transition: PoleTransition) {
+        let predicate = NSPredicate(format: "id = %@", transition.id as CVarArg)
+            let result = fetchFirst(TransitionEntity.self, predicate: predicate)
+            switch result {
+            case .success(let managedObject):
+                if let transitionEntity = managedObject {
+                    managedObjectContext.delete(transitionEntity)
+                }
+            case .failure(_):
+                print("Couldn't fetch TransitionEntity to save")
+            }
+            saveData()
+    }
+    
     /** Utility function that maps fetched PoleMove structs to PoleMoveEntity objects */
     private func _mapPoleMoves(_ newMoves: [PoleMoveEntity]?) {
         if let newMoves = newMoves {

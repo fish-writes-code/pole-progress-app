@@ -12,6 +12,8 @@ struct TransitionListView: View {
     @ObservedObject var moveController = MoveController()
     @State private var transitionToAdd = PoleTransition()
     @State private var showEditor: Bool = false
+    @State private var showConfirmDelete: Bool = false
+    @State private var transitionToDelete: PoleTransition?
     
     var body: some View {
         NavigationStack {
@@ -22,8 +24,28 @@ struct TransitionListView: View {
                     } label: {
                         TransitionRow(poleTransition: transition)
                     }
+                    .swipeActions {
+                        Button("Delete") {
+                            showConfirmDelete = true
+                            transitionToDelete = transition
+                        /* Using .destructive role causes
+                         weird UI glitches, so I'm using
+                         tint instead */
+                        }.tint(.red) // end delete button
+                    } // end swipeActions
                 } // end ForEach
             } // end List
+            .alert("Do you really want to delete?", isPresented: $showConfirmDelete) {
+                Button("Delete", role: .destructive) {
+                    showConfirmDelete = false
+                    transitionController.deleteTransition(transitionToDelete: transitionToDelete!)
+                    transitionToDelete = nil
+                }
+                Button("Cancel", role: .cancel) {
+                    showConfirmDelete = false
+                    transitionToDelete = nil
+                }
+            } // end confirm delete dialog
             .toolbar {
                 ToolbarItem {
                     Button(action: { showEditor = true }) {

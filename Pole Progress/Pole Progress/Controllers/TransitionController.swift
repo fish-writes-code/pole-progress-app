@@ -47,4 +47,8 @@ final class TransitionController: ObservableObject {
     func addOrUpdateTransition(transition: PoleTransition) {
         dataController.updateTransition(transition: transition)
     }
+    
+    func deleteTransition(transitionToDelete: PoleTransition) {
+        dataController.deletePoleTransition(transition: transitionToDelete)
+    }
 }
