@@ -82,8 +82,10 @@ struct MoveRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
             Text(move.primaryName).font(.headline)
-            Text(move.status.description).font(.caption)
-        }
+            if !move.otherNames.isEmpty {
+                Text(move.otherNames).font(.caption)
+            }
+        }.padding(.vertical, 10.0)
     }
 }
 
