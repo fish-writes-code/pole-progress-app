@@ -29,8 +29,8 @@ struct PoleCombo: Identifiable, Hashable {
     init(comboEntity: ComboEntity) {
         self.id = comboEntity.id
         self.name = comboEntity.name
-        self.moves = OrderedSet<PoleMove>(comboEntity.moves.array as! [PoleMove])
-        self.transitions = OrderedSet<PoleTransition>(comboEntity.transitions.array as! [PoleTransition])
+        self.moves = OrderedSet<PoleMove>(comboEntity.moves.array.map({ PoleMove(move: $0 as! PoleMoveEntity) }))
+        self.transitions = OrderedSet<PoleTransition>(comboEntity.transitions.array.map({ PoleTransition(transition: $0 as! TransitionEntity) }))
         self.status = comboEntity.status
         self.lastTrained = comboEntity.last_trained
         self.addedOn = comboEntity.added_on

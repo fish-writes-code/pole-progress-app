@@ -14,11 +14,12 @@ struct MoveListView: View {
     @State private var showConfirmDelete: Bool = false
     @State private var moveToDelete: PoleMove?
     @State private var showMoveEditor: Bool = false
+    @State private var searchText = ""
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(moveController.moves) { move in
+                ForEach(filteredMoves) { move in
                     NavigationLink {
                         MoveDetailsView(move: move, controller: moveController)
                     } label: {
@@ -55,6 +56,7 @@ struct MoveListView: View {
             } // end toolbar
             .navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
         } // end NavigationStack
+        .searchable(text: $searchText, prompt: Text("Search by name"))
         .sheet(isPresented: $showMoveEditor, onDismiss: {
             showMoveEditor = false
             moveToAdd = PoleMove()
@@ -62,6 +64,16 @@ struct MoveListView: View {
             EditMoveView(move: $moveToAdd, isNewMove: true, controller: moveController)
         }
     } // end body
+    
+    var filteredMoves: [PoleMove] {
+        if searchText.isEmpty {
+            return moveController.moves
+        } else {
+            return moveController.moves.filter {
+                $0.allNamesArray.contains { name in name.range(of: searchText, options: .caseInsensitive) != nil }
+            }
+        }
+    }
 } // end MoveListView
 
 struct MoveRow: View {

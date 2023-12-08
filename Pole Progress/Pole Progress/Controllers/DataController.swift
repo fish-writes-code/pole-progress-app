@@ -135,6 +135,7 @@ class DataController: NSObject, ObservableObject {
         let scorpio = PoleMoveEntity(context: managedObjectContext)
         scorpio.id = UUID()
         scorpio.primary_name = "Scorpio"
+        scorpio.other_names = "Inside Leg Hang"
         scorpio.status = Status.inProgress
         scorpio.is_spin_only = false
         scorpio.spotter_required = false
