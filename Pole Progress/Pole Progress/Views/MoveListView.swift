@@ -96,6 +96,11 @@ struct MoveDetailsView: View {
                     Text(move.isSpinOnly ? "Yes" : "No").font(.caption)
                 }
                 HStack() {
+                    Text("Spotter Required:").font(.caption).bold()
+                    Spacer()
+                    Text(move.spotterRequired ? "Yes" : "No").font(.caption)
+                }
+                HStack() {
                     Text("Status:").font(.caption).bold()
                     Spacer()
                     Text(move.status.description).font(.caption)
@@ -162,6 +167,11 @@ struct EditMoveView: View {
                 Section() {
                     Toggle(isOn: $move.isSpinOnly, label: {
                         Text("Spin Only?")
+                    })
+                }
+                Section() {
+                    Toggle(isOn: $move.spotterRequired, label: {
+                        Text("Spotter Required?")
                     })
                 }
                 Section() {

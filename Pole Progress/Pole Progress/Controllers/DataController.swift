@@ -99,6 +99,7 @@ class DataController: NSObject, ObservableObject {
         toTryMove.id = UUID()
         toTryMove.primary_name = "Forearm Ayesha"
         toTryMove.is_spin_only = false
+        toTryMove.spotter_required = true
         toTryMove.status = Status.toTry
         toTryMove.added_on = Date()
         
@@ -108,6 +109,7 @@ class DataController: NSObject, ObservableObject {
         inProgressMove.other_names = "Foot Mount, Flying K"
         inProgressMove.status = Status.inProgress
         inProgressMove.is_spin_only = false
+        inProgressMove.spotter_required = false
         inProgressMove.added_on = Date()
         inProgressMove.last_trained = formatter.date(from: "3/11/2023")
         
@@ -116,6 +118,7 @@ class DataController: NSObject, ObservableObject {
         scorpio.primary_name = "Scorpio"
         scorpio.status = Status.inProgress
         scorpio.is_spin_only = false
+        scorpio.spotter_required = false
         scorpio.added_on = Date()
         scorpio.last_trained = formatter.date(from: "11/24/2023")
         
@@ -125,6 +128,7 @@ class DataController: NSObject, ObservableObject {
         solidMove.other_names = "Outside Leg Hang"
         solidMove.status = Status.solid
         solidMove.is_spin_only = false
+        solidMove.spotter_required = false
         solidMove.added_on = Date()
         solidMove.last_trained = formatter.date(from: "11/24/2023")
         solidMove.notes = "For some reason, whenever I take a long break from pole, this one always gets really shaky. It's like I forget how to grip with the knee pit."
@@ -135,6 +139,7 @@ class DataController: NSObject, ObservableObject {
         blockedMove.other_names = "Poisson, Twisted Fish, Fish, Reverse Poisson, French Fish, Reverse French Fish"
         blockedMove.status = Status.blocked
         blockedMove.is_spin_only = false
+        blockedMove.spotter_required = true
         blockedMove.added_on = Date()
         blockedMove.last_trained = formatter.date(from: "9/2/2022")
         blockedMove.notes = "attempted and failed from extended butterfly"
@@ -144,6 +149,7 @@ class DataController: NSObject, ObservableObject {
         spinOnlyMove.primary_name = "Pencil Spin"
         spinOnlyMove.other_names = ""
         spinOnlyMove.is_spin_only = true
+        spinOnlyMove.spotter_required = false
         spinOnlyMove.status = Status.solid
         spinOnlyMove.added_on = Date()
         spinOnlyMove.last_trained = formatter.date(from: "7/20/2023")

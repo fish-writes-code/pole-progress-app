@@ -14,6 +14,7 @@ struct PoleMove: Identifiable, Hashable {
     var otherNames: String
     var status: Status
     var isSpinOnly: Bool
+    var spotterRequired: Bool
     var lastTrained: Date?
     var notes: String
     let addedOn: Date
@@ -24,6 +25,7 @@ struct PoleMove: Identifiable, Hashable {
         self.otherNames = ""
         self.status = .toTry
         self.isSpinOnly = false
+        self.spotterRequired = false
         self.lastTrained = nil
         self.notes = ""
         self.addedOn = Date()
@@ -37,18 +39,20 @@ struct PoleMove: Identifiable, Hashable {
         self.otherNames = move.other_names
         self.status = move.status
         self.isSpinOnly = move.is_spin_only
+        self.spotterRequired = move.spotter_required
         self.lastTrained = move.last_trained
         self.notes = move.notes
         self.addedOn = move.added_on
     }
     
     /** initializes a PoleMove struct using its mutable fields */
-    init(primaryName: String, otherNames: String, status: Status, isSpinOnly: Bool, lastTrained: Date?, notes: String) {
+    init(primaryName: String, otherNames: String, status: Status, isSpinOnly: Bool, spotterRequired: Bool, lastTrained: Date?, notes: String) {
         self.id = UUID()
         self.primaryName = primaryName
         self.otherNames = otherNames
         self.status = status
         self.isSpinOnly = isSpinOnly
+        self.spotterRequired = spotterRequired
         self.lastTrained = lastTrained
         self.notes = notes
         self.addedOn = Date()

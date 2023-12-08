@@ -19,6 +19,7 @@ extension PoleMoveEntity {
     @NSManaged public var id: UUID
     @NSManaged public var added_on: Date
     @NSManaged public var is_spin_only: Bool
+    @NSManaged public var spotter_required: Bool
     @NSManaged public var last_trained: Date?
     @NSManaged public var notes: String
     @NSManaged public var other_names: String

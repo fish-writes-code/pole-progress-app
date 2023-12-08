@@ -8,6 +8,7 @@
         <attribute name="notes" attributeType="String" defaultValueString=""/>
         <attribute name="other_names" attributeType="String" defaultValueString=""/>
         <attribute name="primary_name" attributeType="String" minValueString="1" maxValueString="120"/>
+        <attribute name="spotter_required" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="status" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="transitions_end" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransitionEntity" inverseName="to" inverseEntity="TransitionEntity"/>
         <relationship name="transitions_start" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransitionEntity" inverseName="from" inverseEntity="TransitionEntity"/>
