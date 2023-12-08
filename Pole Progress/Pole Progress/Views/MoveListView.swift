@@ -36,6 +36,7 @@ struct MoveListView: View {
                     } // end swipeActions
                 } // end moves foreach
             } // end list
+            .searchable(text: $searchText, prompt: Text("Search by name"))
             .alert("Do you really want to delete? This will also delete ALL associated transitions!", isPresented: $showConfirmDelete) {
                 Button("Delete", role: .destructive) {
                     showConfirmDelete = false
@@ -56,7 +57,6 @@ struct MoveListView: View {
             } // end toolbar
             .navigationTitle("All Moves").navigationBarTitleDisplayMode(.inline)
         } // end NavigationStack
-        .searchable(text: $searchText, prompt: Text("Search by name"))
         .sheet(isPresented: $showMoveEditor, onDismiss: {
             showMoveEditor = false
             moveToAdd = PoleMove()
