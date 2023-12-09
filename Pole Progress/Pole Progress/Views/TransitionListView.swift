@@ -23,7 +23,7 @@ struct TransitionListView: View {
                         TransitionDetailView(tController: transitionController, mController: moveController, transition: transition)
                     } label: {
                         TransitionRow(poleTransition: transition)
-                    }
+                    } // end NavLink
                     .swipeActions {
                         Button("Delete") {
                             showConfirmDelete = true
@@ -80,9 +80,9 @@ struct TransitionRow: View {
                         Text(poleTransition.from.primaryName).font(.caption)
                         Image(systemName: "arrow.right").font(.caption)
                         Text(poleTransition.to.primaryName).font(.caption)
-                    } // end hstack
-                }
-            }
+                    } // end HStack
+                } // end VStack
+            } // end if-else
         } // end HStack
     } // end body
 }
@@ -100,7 +100,7 @@ struct TransitionDetailView: View {
                     Text(transition.from.primaryName).font(.subheadline)
                     Image(systemName: "arrow.right").font(.subheadline)
                     Text(transition.to.primaryName).font(.subheadline)
-                }
+                } // end HStack
             }
             VStack(alignment: .leading, spacing: 8.0) {
                 HStack {

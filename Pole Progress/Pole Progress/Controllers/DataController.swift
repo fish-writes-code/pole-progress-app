@@ -247,6 +247,13 @@ class DataController: NSObject, ObservableObject {
         cupidCombo.transitions = NSOrderedSet(array: [inProgressTransition, cupidtoJasmine])
         cupidCombo.last_trained = formatter.date(from: "7/21/2023")
         
+        let legSwitchCombo = ComboEntity(context: managedObjectContext)
+        legSwitchCombo.id = UUID()
+        legSwitchCombo.name = "Leg Switch Combo"
+        legSwitchCombo.moves = NSOrderedSet(array: [gemini, scorpio])
+        legSwitchCombo.transitions = NSOrderedSet(array: [legHangSwitch])
+        legSwitchCombo.last_trained = formatter.date(from: "12/3/2023")
+    
         
         try? self.managedObjectContext.save()
     }

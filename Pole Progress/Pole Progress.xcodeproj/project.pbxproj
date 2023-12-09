@@ -23,6 +23,7 @@
 		72382D922B16B54D007901D6 /* StatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D912B16B54D007901D6 /* StatusEnum.swift */; };
 		72382D992B16C151007901D6 /* MoveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D982B16C150007901D6 /* MoveListView.swift */; };
 		726BA7172B22B112004C40B6 /* ComboController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726BA7162B22B112004C40B6 /* ComboController.swift */; };
+		72A33E092B23F3BB00DB3244 /* ComboListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A33E082B23F3BB00DB3244 /* ComboListView.swift */; };
 		72D7EBF92B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */; };
 		72D89DE22B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D89DE02B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift */; };
 		72D89DE32B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D89DE12B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift */; };
@@ -73,6 +74,7 @@
 		72382D912B16B54D007901D6 /* StatusEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEnum.swift; sourceTree = "<group>"; };
 		72382D982B16C150007901D6 /* MoveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveListView.swift; sourceTree = "<group>"; };
 		726BA7162B22B112004C40B6 /* ComboController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboController.swift; sourceTree = "<group>"; };
+		72A33E082B23F3BB00DB3244 /* ComboListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboListView.swift; sourceTree = "<group>"; };
 		72D7EBF82B16C8D2006A3E99 /* PoleProgressData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PoleProgressData.xcdatamodel; sourceTree = "<group>"; };
 		72D89DE02B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComboEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		72D89DE12B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComboEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				72382D982B16C150007901D6 /* MoveListView.swift */,
 				72313EB82B20E0B1000BD4D0 /* TransitionListView.swift */,
+				72A33E082B23F3BB00DB3244 /* ComboListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72313EB92B20E0B1000BD4D0 /* TransitionListView.swift in Sources */,
+				72A33E092B23F3BB00DB3244 /* ComboListView.swift in Sources */,
 				72313EB52B203308000BD4D0 /* PoleTransition.swift in Sources */,
 				72D89DE52B22A62C001F1F50 /* PoleCombo.swift in Sources */,
 				72382D922B16B54D007901D6 /* StatusEnum.swift in Sources */,

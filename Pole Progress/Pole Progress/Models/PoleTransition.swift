@@ -46,6 +46,14 @@ struct PoleTransition: Identifiable, Hashable {
         self.addedOn = transition.added_on
     }
     
+    var stringRepr: String {
+        let movesStr = from.primaryName + " to " + to.primaryName
+        if !self.name.isEmpty {
+            return "\(name): (\(movesStr))"
+        }
+        return movesStr
+    }
+    
     var lastTrainedString: String {
         return self.lastTrained != nil ? lastTrained!.dateOnlyFormat : "Never"
     }
