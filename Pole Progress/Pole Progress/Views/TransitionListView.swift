@@ -14,11 +14,31 @@ struct TransitionListView: View {
     @State private var showEditor: Bool = false
     @State private var showConfirmDelete: Bool = false
     @State private var transitionToDelete: PoleTransition?
+    @State private var showStatusFilter: Bool = false
+    @State private var selectedStatus: [Status] = Status.allCases
     
     var body: some View {
         NavigationStack {
+            Button("Filter by Status", action: {showStatusFilter.toggle()}
+            )
+            if showStatusFilter {
+                NavigationLink(destination: {
+                    MultiSelectPickerView(selectedItems: $selectedStatus)
+                        .navigationTitle("Filter by Status")
+                }, label: {
+                    // And then the label and dynamic number are displayed in the label. We don't need to include the chevron as it's done for us in the link
+                    HStack {
+                        Text("Select Status:")
+                            .foregroundColor(Color(red: 0.4192, green: 0.2358, blue: 0.3450))
+                        Spacer()
+                        Image(systemName: "\($selectedStatus.count).circle")
+                            .foregroundColor(Color(red: 0.4192, green: 0.2358, blue: 0.3450))
+                            .font(.title2)
+                    }
+                }).frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
+            } // end status filter if
             List {
-                ForEach(transitionController.transitions) { transition in 
+                ForEach(filteredTransitions) { transition in 
                     NavigationLink {
                         TransitionDetailView(tController: transitionController, mController: moveController, transition: transition)
                     } label: {
@@ -62,6 +82,19 @@ struct TransitionListView: View {
             TransitionEditView(isNewTransition: true, transition: $transitionToAdd, transitionController: transitionController, moveController: moveController)
         } // end sheet
     } // end body
+    
+    var filteredTransitions: [PoleTransition] {
+        var temp = transitionController.transitions
+        if selectedStatus.isEmpty || selectedStatus.count == 4 {
+            return temp
+        }
+        if !(selectedStatus.isEmpty || selectedStatus.count == 4) {
+            temp = temp.filter {
+                selectedStatus.contains($0.status)
+            }
+        }
+        return temp
+    }
 }
 
 struct TransitionRow: View {

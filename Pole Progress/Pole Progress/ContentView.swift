@@ -31,11 +31,43 @@ struct ContentView: View {
             }).buttonStyle(.bordered)
             Button(action: {}, label: {
                 NavigationLink {
-                    TransitionListView(transitionController: transitionController, moveController: moveController)
+                    ComboListView(comboController: comboController, transitionController: transitionController, moveController: moveController)
                 } label: {
                     Text("Pole Combos")
                 }
             }).buttonStyle(.bordered)
+        }
+    }
+}
+
+
+// The struct that the custom picker (button) opens which is minorly adapted from: https://gist.github.com/dippnerd/5841898c2cf945994ba85871446329fa
+struct MultiSelectPickerView: View {
+    // The list of items we want to show
+    @State var allItems = Status.allCases
+    // Binding to the selected items we want to track
+    @Binding var selectedItems: [Status]
+
+    var body: some View {
+        Form {
+            List {
+                ForEach(allItems, id: \.self) { status in
+                    Button(action: {
+                        if self.selectedItems.contains(status) {
+                            self.selectedItems.removeAll(where: { $0 == status })
+                        } else {
+                            self.selectedItems.append(status)
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "checkmark")
+                                .opacity(self.selectedItems.contains(status) ? 1.0 : 0.0)
+                            Text(status.description)
+                        }
+                    }
+                    .foregroundColor(.primary)
+                }
+            }
         }
     }
 }

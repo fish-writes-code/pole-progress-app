@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import MultiPicker
 
 struct MoveListView: View {
     @ObservedObject var moveController = MoveController()
@@ -15,9 +16,30 @@ struct MoveListView: View {
     @State private var moveToDelete: PoleMove?
     @State private var showMoveEditor: Bool = false
     @State private var searchText = ""
+    @State private var showStatusFilter: Bool = false
+    @State private var selectedStatus: [Status] = Status.allCases
     
     var body: some View {
         NavigationStack {
+            Button("Filter by Status", action: {showStatusFilter.toggle()}
+            )
+            if showStatusFilter {
+                NavigationLink(destination: {
+                    MultiSelectPickerView(selectedItems: $selectedStatus)
+                        .navigationTitle("Filter by Status")
+                }, label: {
+                    // And then the label and dynamic number are displayed in the label. We don't need to include the chevron as it's done for us in the link
+                    HStack {
+                        Text("Select Status:")
+                            .foregroundColor(Color(red: 0.4192, green: 0.2358, blue: 0.3450))
+                        Spacer()
+                        Image(systemName: "\($selectedStatus.count).circle")
+                            .foregroundColor(Color(red: 0.4192, green: 0.2358, blue: 0.3450))
+                            .font(.title2)
+                    }
+                }).frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)
+            } // end status filter if
+            
             List {
                 ForEach(filteredMoves) { move in
                     NavigationLink {
@@ -66,13 +88,21 @@ struct MoveListView: View {
     } // end body
     
     var filteredMoves: [PoleMove] {
-        if searchText.isEmpty {
-            return moveController.moves
-        } else {
-            return moveController.moves.filter {
+        var temp = moveController.moves
+        if (selectedStatus.isEmpty || selectedStatus.count == 4) && searchText.isEmpty {
+            return temp
+        }
+        if !(selectedStatus.isEmpty || selectedStatus.count == 4) {
+            temp = temp.filter {
+                selectedStatus.contains($0.status)
+            }
+        }
+        if !searchText.isEmpty {
+            temp = temp.filter {
                 $0.allNamesArray.contains { name in name.range(of: searchText, options: .caseInsensitive) != nil }
             }
         }
+        return temp
     }
 } // end MoveListView
 
@@ -81,7 +111,13 @@ struct MoveRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
-            Text(move.primaryName).font(.headline)
+            HStack {
+                Text(move.primaryName).font(.headline)
+                if move.spotterRequired {
+                    Image(systemName: "eye.trianglebadge.exclamationmark")
+                        .foregroundColor(Color(red: 0.9, green: 0.35, blue: 0.3))
+                }
+            }
             if !move.otherNames.isEmpty {
                 Text(move.otherNames).font(.caption)
             }
@@ -92,6 +128,9 @@ struct MoveRow: View {
 struct MoveDetailsView: View {
     @State var move: PoleMove
     @State var showEditor: Bool = false
+    @State var showTransitions: Bool = false
+    @State var showCombos: Bool = false
+    
     @ObservedObject var controller: MoveController
     
     var body: some View {
@@ -128,6 +167,12 @@ struct MoveDetailsView: View {
                     Text("Notes:").font(.caption).bold()
                     Text(move.notes).font(.caption2).fixedSize(horizontal: false, vertical: true)
                 }
+                Button(action: { showTransitions = true }, label: {
+                    Text("See Known Transitions")
+                }).buttonStyle(.bordered)
+                Button(action: { showCombos = true }, label: {
+                    Text("See Combos")
+                }).buttonStyle(.bordered)
                 Spacer()
             } // end VStack
             .frame(width: UIScreen.main.bounds.width * 0.65).padding(.top)

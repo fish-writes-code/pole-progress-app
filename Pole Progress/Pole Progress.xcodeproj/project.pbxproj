@@ -24,6 +24,7 @@
 		72382D992B16C151007901D6 /* MoveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72382D982B16C150007901D6 /* MoveListView.swift */; };
 		726BA7172B22B112004C40B6 /* ComboController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726BA7162B22B112004C40B6 /* ComboController.swift */; };
 		72A33E092B23F3BB00DB3244 /* ComboListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A33E082B23F3BB00DB3244 /* ComboListView.swift */; };
+		72A33E0C2B240D8900DB3244 /* MultiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 72A33E0B2B240D8900DB3244 /* MultiPicker */; };
 		72D7EBF92B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72D7EBF72B16C8D2006A3E99 /* PoleProgressData.xcdatamodeld */; };
 		72D89DE22B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D89DE02B22A54A001F1F50 /* ComboEntity+CoreDataClass.swift */; };
 		72D89DE32B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D89DE12B22A54A001F1F50 /* ComboEntity+CoreDataProperties.swift */; };
@@ -92,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72A33E0C2B240D8900DB3244 /* MultiPicker in Frameworks */,
 				72E2B6312B19842500501351 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +241,7 @@
 			name = "Pole Progress";
 			packageProductDependencies = (
 				72E2B6302B19842500501351 /* OrderedCollections */,
+				72A33E0B2B240D8900DB3244 /* MultiPicker */,
 			);
 			productName = "Pole Progress";
 			productReference = 72382D5A2B16B24C007901D6 /* Pole Progress.app */;
@@ -314,6 +317,7 @@
 			mainGroup = 72382D512B16B24C007901D6;
 			packageReferences = (
 				72E2B62E2B197E7800501351 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				72A33E0A2B240D8900DB3244 /* XCRemoteSwiftPackageReference "MultiPicker" */,
 			);
 			productRefGroup = 72382D5B2B16B24C007901D6 /* Products */;
 			projectDirPath = "";
@@ -704,6 +708,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		72A33E0A2B240D8900DB3244 /* XCRemoteSwiftPackageReference "MultiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/toastersocks/MultiPicker.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		72E2B62E2B197E7800501351 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -715,6 +727,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		72A33E0B2B240D8900DB3244 /* MultiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 72A33E0A2B240D8900DB3244 /* XCRemoteSwiftPackageReference "MultiPicker" */;
+			productName = MultiPicker;
+		};
 		72E2B6302B19842500501351 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 72E2B62E2B197E7800501351 /* XCRemoteSwiftPackageReference "swift-collections" */;

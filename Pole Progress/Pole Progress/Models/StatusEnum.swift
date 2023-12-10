@@ -7,8 +7,8 @@
 
 import Foundation
 
-@objc public enum Status: Int16, CaseIterable, Identifiable {
-    public var id: Self { self }
+@objc public enum Status: Int16, CaseIterable, Identifiable, Hashable, Equatable {
+    public var id: Self { return self }
     
     case toTry = 0
     case inProgress = 1
