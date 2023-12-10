@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreData
-import MultiPicker
 
 struct MoveListView: View {
     @ObservedObject var moveController = MoveController()
