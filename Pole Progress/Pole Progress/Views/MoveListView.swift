@@ -11,6 +11,8 @@ import MultiPicker
 
 struct MoveListView: View {
     @ObservedObject var moveController = MoveController()
+    @ObservedObject var transitionController = TransitionController()
+    
     @State private var moveToAdd = PoleMove()
     @State private var showConfirmDelete: Bool = false
     @State private var moveToDelete: PoleMove?
@@ -43,7 +45,7 @@ struct MoveListView: View {
             List {
                 ForEach(filteredMoves) { move in
                     NavigationLink {
-                        MoveDetailsView(move: move, controller: moveController)
+                        MoveDetailsView(move: move, controller: moveController, tController: transitionController)
                     } label: {
                         MoveRow(move: move)
                     } // end NavigationLink
@@ -128,10 +130,12 @@ struct MoveRow: View {
 struct MoveDetailsView: View {
     @State var move: PoleMove
     @State var showEditor: Bool = false
-    @State var showTransitions: Bool = false
+    @State var showFromTransitions: Bool = false
+    @State var showToTransitions: Bool = false
     @State var showCombos: Bool = false
     
     @ObservedObject var controller: MoveController
+    @ObservedObject var tController: TransitionController
     
     var body: some View {
         NavigationStack {
@@ -167,10 +171,29 @@ struct MoveDetailsView: View {
                     Text("Notes:").font(.caption).bold()
                     Text(move.notes).font(.caption2).fixedSize(horizontal: false, vertical: true)
                 }
-                Button(action: { showTransitions = true }, label: {
-                    Text("See Known Transitions")
+                Button(action: { showFromTransitions.toggle() }, label: {
+                    Text("Where can I go from here?")
                 }).buttonStyle(.bordered)
-                Button(action: { showCombos = true }, label: {
+                if showFromTransitions {
+                    VStack {
+                        ForEach (tController.getTransitionsWithStartingMove(startingMove: move)) { transition in
+                            NavigationLink(transition.stringRepr, destination: TransitionDetailView(tController: tController, mController: controller, transition: transition))
+                        } // end ForEach
+                    } // end VStack
+                } // end
+                
+                Button(action: { showToTransitions.toggle() }, label: {
+                    Text("How can I get here?")
+                }).buttonStyle(.bordered)
+                if showToTransitions {
+                    VStack {
+                        ForEach (tController.getTransitionsWithEndingMove(endingMove: move)) { transition in
+                            NavigationLink(transition.stringRepr, destination: TransitionDetailView(tController: tController, mController: controller, transition: transition))
+                        } // end ForEach
+                    } // end VStack
+                } // end
+                
+                Button(action: { showCombos.toggle() }, label: {
                     Text("See Combos")
                 }).buttonStyle(.bordered)
                 Spacer()
@@ -267,7 +290,7 @@ struct EditMoveView: View {
 }
 
 #Preview {
-    MoveListView(moveController: MoveController(dataController: DataController.preview))
+    MoveListView(moveController: MoveController(dataController: DataController.preview), transitionController: TransitionController(dataController: DataController.preview))
 }
 
 

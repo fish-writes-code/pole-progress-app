@@ -506,7 +506,7 @@ extension DataController: NSFetchedResultsControllerDelegate {
             comboEntity.last_trained = combo.lastTrained
             
         case .failure(_):
-            print("Couldn't fetch TransitionEntity to save")
+            print("Couldn't fetch ComboEntity to save")
         }
         
         saveData()
