@@ -334,6 +334,7 @@ extension DataController: NSFetchedResultsControllerDelegate {
             moveEntity.other_names = moveStruct.otherNames
             moveEntity.status = moveStruct.status
             moveEntity.is_spin_only = moveStruct.isSpinOnly
+            moveEntity.spotter_required = moveStruct.spotterRequired
             moveEntity.notes = moveStruct.notes
             moveEntity.last_trained = moveStruct.lastTrained
             moveEntity.added_on = moveStruct.addedOn
@@ -371,6 +372,22 @@ extension DataController: NSFetchedResultsControllerDelegate {
         }
         try? transitionsController.performFetch()
         _mapTransitions(transitionsController.fetchedObjects)
+    }
+    
+    func fetchTransitionById(_ id: UUID) -> TransitionEntity? {
+        let predicate = NSPredicate(format: "id = %@", id as CVarArg)
+        let result = fetchFirst(TransitionEntity.self, predicate: predicate)
+        switch result {
+        case .success(let transitionEntity):
+            if transitionEntity != nil {
+                return transitionEntity
+            } else {
+                return nil
+            }
+        case .failure(_):
+            print("Fetch failed")
+            return nil
+        }
     }
     
     func resetMoveTransitionFetch() {
@@ -446,6 +463,54 @@ extension DataController: NSFetchedResultsControllerDelegate {
         combosController.fetchRequest.predicate = nil
         try? combosController.performFetch()
         _mapCombos(combosController.fetchedObjects)
+    }
+    
+    func updateCombo(combo: PoleCombo) {
+        let predicate = NSPredicate(format: "id = %@", combo.id as CVarArg)
+        let result = fetchFirst(ComboEntity.self, predicate: predicate)
+        let comboEntity: ComboEntity
+        switch result {
+        case .success(let managedObject):
+            if managedObject != nil {
+                comboEntity = managedObject!
+            } else {
+                comboEntity = ComboEntity(context: managedObjectContext)
+            }
+            
+            comboEntity.id = combo.id
+            
+            var moveEntityArray: [PoleMoveEntity] = []
+            for move in combo.moves {
+                let moveEntity = fetchPoleMoveById(move.id)
+                if moveEntity != nil {
+                    moveEntityArray.append(moveEntity!)
+                } else {
+                    print("Pole move not found")
+                    return
+                }
+            }
+            comboEntity.moves = NSOrderedSet(array: moveEntityArray)
+            
+            var transitionEntityArray: [TransitionEntity] = []
+            for transition in combo.transitions {
+                if let transitionEntity = fetchTransitionById(transition.id) {
+                    transitionEntityArray.append(transitionEntity)
+                } else {
+                    updateTransition(transition: transition)
+                    transitionEntityArray.append(fetchTransitionById(transition.id)!)
+                }
+            }
+            comboEntity.transitions = NSOrderedSet(array: transitionEntityArray)
+            
+            comboEntity.status = combo.status
+            comboEntity.last_trained = combo.lastTrained
+            
+        case .failure(_):
+            print("Couldn't fetch TransitionEntity to save")
+        }
+        
+        saveData()
+        
     }
     
     /** Utility function that maps fetched PoleMove structs to PoleMoveEntity objects */
