@@ -410,6 +410,7 @@ extension DataController: NSFetchedResultsControllerDelegate {
             }
             
             transitionEntity.id = transition.id
+            transitionEntity.name = transition.name
             let fromMove = fetchPoleMoveById(transition.from.id)
             let toMove = fetchPoleMoveById(transition.to.id)
             

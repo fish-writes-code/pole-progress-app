@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct Pole_ProgressApp: App {
     @Environment(\.scenePhase) var scenePhase
-    var dataController = DataController.preview
-//    var dataController = DataController.shared
+//    var dataController = DataController.preview
+    var dataController = DataController.shared
     var body: some Scene {
         WindowGroup {
             ContentView()
