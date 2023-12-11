@@ -49,4 +49,8 @@ struct PoleCombo: Identifiable, Hashable {
     var lastTrainedString: String {
         return self.lastTrained != nil ? lastTrained!.dateOnlyFormat : "Never"
     }
+    
+    var moveNames: [String] {
+        return self.moves.map { $0.primaryName }
+    }
 }

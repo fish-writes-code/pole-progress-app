@@ -43,7 +43,7 @@ struct ComboListView: View {
             List {
                 ForEach(filteredCombos) { combo in
                     NavigationLink {
-                        ComboDetailView(cController: comboController, mController: moveController, combo: combo)
+                        ComboDetailView(cController: comboController, mController: moveController, tController: transitionController, combo: combo)
                     } label: {
                         ComboRow(poleCombo: combo)
                     }
@@ -58,6 +58,12 @@ struct ComboListView: View {
             } // end toolbar
             .navigationTitle("Combos").navigationBarTitleDisplayMode(.inline)
         } // end NavStack
+        .sheet(isPresented: $showEditor, onDismiss: {
+            showEditor = false
+            comboToAdd = PoleCombo()
+        }) {
+            ComboEditView(controller: comboController, mController: moveController, tController: transitionController, combo: $comboToAdd, isNewCombo: true)
+        }
     } // end body
     var filteredCombos: [PoleCombo] {
         var temp = comboController.combos
@@ -87,9 +93,10 @@ struct ComboRow: View {
 struct ComboDetailView: View {
     @ObservedObject var cController: ComboController
     @ObservedObject var mController: MoveController
+    @ObservedObject var tController: TransitionController
     
     @State var combo: PoleCombo
-    @State var showEditor: Bool = false    
+    @State var showEditor: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -122,13 +129,137 @@ struct ComboDetailView: View {
             } // end VStack
             .toolbar {
                 ToolbarItem {
-                    Button(action: { showEditor = true }) {
+                    Button(action: {
+                        showEditor = true
+                    }) {
                         Text("Edit")
                     }
                 }
             } // end toolbar
             .navigationTitle(combo.name)
         } // end NavStack
+        .sheet(isPresented: $showEditor, onDismiss: {
+            showEditor = false
+        }) {
+            ComboEditView(controller: cController, mController: mController, tController: tController, combo: $combo, isNewCombo: false)
+        }
+    }
+}
+
+struct ComboEditView : View {
+    @Environment(\.dismiss) private var dismiss
+    
+    @ObservedObject var controller: ComboController
+    @ObservedObject var mController: MoveController
+    @ObservedObject var tController: TransitionController
+    
+    @Binding var combo: PoleCombo
+    
+    @State private var moveSearch: String = ""
+    @State private var isMoveSuggested: Bool = false
+    
+    @State private var selectedMoves: [PoleMove] = []
+    
+    @State private var previouslyTrained: Bool = false
+    @State private var lastTrainedDate: Date = Date()
+    
+    var isNewCombo: Bool
+    
+    
+    init(controller: ComboController, mController: MoveController, tController: TransitionController, combo: Binding<PoleCombo>, isNewCombo: Bool, action: ((String, Int) -> Void)? = nil) {
+        self.controller = controller
+        self.mController = mController
+        self.tController = tController
+        self._combo = combo
+        self.isNewCombo = isNewCombo
+        
+        if !isNewCombo {
+            self._selectedMoves = State(initialValue: combo.wrappedValue.moves.elements)
+        }
+        
+        if let lastTrained = Binding<Date>(combo.lastTrained) {
+            self._previouslyTrained = State(initialValue: true)
+            self._lastTrainedDate = State(initialValue: lastTrained.wrappedValue)
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            Text(isNewCombo ? "Add a Combo" : "Edit Combo").font(.title)
+            Form {
+                Section(header: Text("Name")) {
+                    TextField("Required", text: $combo.name)
+                }
+                
+                Section(header: Text("Moves")) {
+                    TextField("Add a move", text: $moveSearch)
+                        .onChange(of: moveSearch, {
+                            if moveSearch.count != 0 {
+                                self.isMoveSuggested = true
+                            } else {
+                                self.isMoveSuggested = false
+                            }
+                        })
+                    if isMoveSuggested {
+                        List {
+                            ForEach(filteredMoves) { move in
+                                Text(move.primaryName)
+                                    .onTapGesture {
+                                        selectedMoves.append(move)
+                                        isMoveSuggested = false
+                                        moveSearch = ""
+                                    }
+                            }.foregroundColor(.gray)
+                        }
+                    }
+                    List {
+                        ForEach(Array(zip(selectedMoves.indices, selectedMoves)), id: \.1.id) { (i, move) in
+                            HStack {
+                                Text(move.primaryName)
+                                Image(systemName: "xmark.circle").onTapGesture( perform: {
+                                    selectedMoves.remove(at: i)
+                                })
+                            }
+                        } // end ForEach
+                        .padding(2.0)
+                    }
+                }
+                
+                Section() {
+                    Picker("Status", selection: $combo.status) {
+                        ForEach(Status.allCases) { status in
+                            Text(status.description)
+                        }
+                    }
+                } // end status section
+                Section() {
+                    Toggle(isOn: $previouslyTrained, label: {
+                        Text("Previously Trained?")
+                    })
+                    DatePicker("Last Trained Date", selection: $lastTrainedDate, displayedComponents: [.date]).disabled(!previouslyTrained)
+                } // end previously trained section
+            } // end Form
+            Button("Submit") {
+                if !previouslyTrained {
+                    combo.lastTrained = nil
+                } else {
+                    combo.lastTrained = lastTrainedDate
+                }
+//                controller.addOrUpdatePoleMove(move: move)
+                dismiss()
+            }
+            Spacer()
+        } // end VStack
+    } // end body
+    
+    var filteredMoves: [PoleMove] {
+        var temp = mController.moves
+        if !moveSearch.isEmpty {
+            temp = temp.filter {
+                $0.allNamesArray.contains { name in name.range(of: moveSearch, options: .caseInsensitive) != nil }
+            }
+        }
+        return temp
     }
 }
 
